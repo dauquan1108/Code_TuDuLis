@@ -1,25 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { Component } from "react";
+import "./App.css";
+import Test from "./components/test";
+class App extends Component {
+  constructor() {
+    super();
+    this.todoitem = [
+      {title:"Đi chơi đi", isComplete: true },
+      {title:"Ở nhà học bài"},
+      {title:"cố lên nào"}
+    ];
+  }
+  render() {
+    return (
+      <div className="App">
+        {this.todoitem.length > 0 &&
+          this.todoitem.map((items, index) => (
+            <Test key={index} items={items} />
+          ))}
+        {this.todoitem.length === 0 && "Dữ liệu trống"}
+      </div>
+    );
+  }
 }
 
 export default App;
