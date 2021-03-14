@@ -1,6 +1,11 @@
 import { Component } from "react";
 import "./App.css";
 import Test from "./components/test";
+
+import ToDoList from "./components/ToDoList";
+import Header from "./components/Header";
+import List from "./components/List";
+import Footer from "./components/Footer";
 class App extends Component {
   constructor() {
     super();
@@ -18,6 +23,10 @@ class App extends Component {
             <Test key={index} items={items} />
           ))}
         {this.todoitem.length === 0 && "Dữ liệu trống"}
+       <Header/>
+       <ToDoList/>
+       <List/>
+       <Footer />
       </div>
     );
   }
