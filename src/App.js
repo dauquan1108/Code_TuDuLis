@@ -2,6 +2,13 @@ import { Component } from "react";
 import "./App.css";
 import Test from "./components/test";
 
+<<<<<<< HEAD
+=======
+import ToDoList from "./components/ToDoList";
+import Header from "./components/Header";
+import List from "./components/List";
+import Footer from "./components/Footer";
+>>>>>>> 14914df4a0c49c6a2ba19ccf411766f32fc9f566
 class App extends Component {
   constructor() {
     super();
@@ -65,6 +72,7 @@ class App extends Component {
     // item dinh dang: => obj
     return (
       <div className="App">
+<<<<<<< HEAD
         {
           // zindex 0, 1, 2
           b.length > 0 && b.map((item, index) => {
@@ -74,6 +82,17 @@ class App extends Component {
           })
         }
         {/* {this.state.length === 0 && "Dữ liệu trống"} */}
+=======
+        {this.todoitem.length > 0 &&
+          this.todoitem.map((items, index) => (
+            <Test key={index} items={items} />
+          ))}
+        {this.todoitem.length === 0 && "Dữ liệu trống"}
+       <Header/>
+       <ToDoList/>
+       <List/>
+       <Footer />
+>>>>>>> 14914df4a0c49c6a2ba19ccf411766f32fc9f566
       </div>
     );
   }
