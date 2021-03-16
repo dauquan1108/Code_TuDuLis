@@ -15,6 +15,10 @@ class Test extends Component {
   //   // Đâỏ ngược trạng thái của các items đang ở true thì thành false
   // }
 
+  // int sum(Int a, Int b) {
+  //   return a + b;
+  // }
+  // sum (10, 10 )
   handleClick = () => {
     const onClick = this.props.onClick;
     const zindex = this.props.zindex;  
@@ -44,6 +48,7 @@ class Test extends Component {
               : {}
           }
         >
+          <imput > Nhập text </imput>
           <p>{item.title}</p>
         </div>
       </div>

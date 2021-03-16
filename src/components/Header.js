@@ -1,11 +1,19 @@
 import React, { Component } from "react";
 
 class Header extends Component {
-    render(){
-        return(
-            <h1>Header</h1>
-        );
-    }
+  onclick=()=> {
+      console.log(this.onKeyUp);
+  }
+  render() {
+    return (
+      <div>
+        <form>
+          <input type="text" placeholder="Nhập" onKeyUp={this.onKeyUp} />
+          <button onClick={this.onclick}> Nút</button>
+        </form>
+      </div>
+    );
+  }
 }
 
 export default Header;
