@@ -1,7 +1,7 @@
 import { Component } from "react";
 import "./App.css";
 import Test from "./components/test";
-import Header from "./components/Header";
+import HeaDer from "./components/HeaDer";
 import ToDoList from "./components/ToDoList";
 class App extends Component {
   constructor() {
@@ -14,31 +14,22 @@ class App extends Component {
       ],
     };
   }
-  // zindex : => number
-  // onItemClicked = (zindex) => {
-  //   const todoItem = this.state.todoItem;
-  //   debugger;
-  //   // for
-  //   todoItem[zindex].isComplete = !todoItem[zindex].isComplete;
-  //   this.setState({ todoItem });
-  // };
-  addTodo = (value) => {
-    const {toDoList} = this.state;
+  addToDo = (value) => {
+    const toDoList = this.state.toDoList;
     this.setState({
-      toDoList: [
-        { title: value, isComplete: false },
-        ...toDoList,
-      ] 
-    })
-  }
+      toDoList: [{ title: value, isComplete: false }, ...this.state.toDoList],
+    });
+  };
+
   render() {
     return (
       <div className="App">
-        <Header addTodo={this.addTodo} />
+        <HeaDer addToDo={this.addToDo}/>
         <ToDoList toDoList={this.state.toDoList} />
       </div>
     );
   }
 }
+
 
 export default App;

@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 // thư viện của ClassNames
-import ClassNames from "classnames";
+
 
 import "./test.css";
-import classNames from "classnames";
+
 class Test extends Component {
   // constructor(props){
   //   super(props);
