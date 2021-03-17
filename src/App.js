@@ -22,10 +22,19 @@ class App extends Component {
   //   todoItem[zindex].isComplete = !todoItem[zindex].isComplete;
   //   this.setState({ todoItem });
   // };
+  addTodo = (value) => {
+    const {toDoList} = this.state;
+    this.setState({
+      toDoList: [
+        { title: value, isComplete: false },
+        ...toDoList,
+      ] 
+    })
+  }
   render() {
     return (
       <div className="App">
-        <Header />
+        <Header addTodo={this.addTodo} />
         <ToDoList toDoList={this.state.toDoList} />
       </div>
     );
