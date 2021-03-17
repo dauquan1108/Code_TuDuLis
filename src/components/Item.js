@@ -7,7 +7,7 @@ class Item extends Component {
 
   handleClick = () => {
     const item = this.props.item;
-    this.props.onclick(item);
+    this.props.onclick(item); // lay ra key cua du lieu
     console.log(this);
   };
 
