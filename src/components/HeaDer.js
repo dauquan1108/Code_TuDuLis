@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-
+import "./HeaDer.css";
+import checkAll from "./images/checkall.svg";
 class HeaDer extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       value: "",
     };
@@ -17,9 +18,8 @@ class HeaDer extends Component {
     if (value.length > 0) {
       addToDo(value);
     } else {
-      alert("Sai dữ liệu");
+      return;
     }
-    //value.length > 0 ? addToDo(value) : alert("sai du lieu");
   };
   handleInput = (event) => {
     const text = event.target.value;
@@ -28,18 +28,37 @@ class HeaDer extends Component {
     });
   };
 
+
+  handleOnKeyUp = () => {
+    // const value = this.state.value;
+    // const addToDo = this.props.addToDo;
+    // this.setState({
+    //   value: "",
+    // });
+    // // const {addTodo} = this.props; cach 2
+    // if (value.length > 0) {
+    //   addToDo(value);
+    // } else {
+    //   return;
+    // }
+  };
+
   render() {
-    // const {value} = this.state;
-    const value = this.state.value;
     return (
       <div className="Header">
+        <img className="image" src={checkAll} />
         <input
           type="text"
-          placeholder="Xin mời nhập"
+          placeholder="What needs to be done?"
           value={this.state.value}
           onChange={this.handleInput}
+          
+          onKeyDown={this.handleOnKeyUp}
         />
-        <button onClick={this.onclick}> Nút</button>
+        <button className="button" onClick={this.onclick}>
+          {" "}
+          Submit{" "}
+        </button>
       </div>
     );
   }

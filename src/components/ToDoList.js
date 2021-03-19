@@ -1,29 +1,26 @@
 import React, { Component } from "react";
 import Item from "./Item";
+import "./HeaDer.css";
 
 class ToDoList extends Component {
-  clickItem = (itemChildren) => {
-      console.log(itemChildren);
-  };
-
-  /**
-  
-  <div> 
-     <div classname = "item" >co len nao  </div> toDoList[0]
-     <div classname = "item" >co len nao 1 </div>  toDoList[1]
-     <div classname = "item" >co len nao 2 </div>  toDoList[2]
-  </div>
-
-   
-   * 
-  */
+  constructor(props) {
+    super(props);
+  }
 
   render() {
-    const toDoList = this.props.toDoList;
+    const { toDoList, onChangeInApp , onDeleteComponent } = this.props;
     return (
       <div>
         {toDoList.map((item, index) => {
-          return <Item key={index} item={item} onclick={this.clickItem} />;
+          return (
+            <Item
+              item={item}
+              toDoIndex={index}
+              onChangeToDoList={onChangeInApp}
+              onDeleteToDoList= {onDeleteComponent}
+              
+            />
+          );
         })}
       </div>
     );
@@ -31,3 +28,4 @@ class ToDoList extends Component {
 }
 
 export default ToDoList;
+

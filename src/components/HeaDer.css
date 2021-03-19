@@ -1,5 +1,76 @@
+.App {
+    text-align: center;
+    width: 40%;
+    margin: auto;
+    background-color: #4a484840;
+    margin-top: 2%;
+    border-radius: 5px;
+}
+
+.Header {
+    width: 100%;
+    height: 74px;
+    padding-top: 20px;
+}
+
+input {
+    width: 80%;
+    height: 38px;
+    outline: none;
+    border: none;
+    background-color: #4a484800;
+    padding-left: 20px;
+}
+
+.button {
+    margin-left: 5px;
+    width: 77px;
+    height: 38px;
+    border: none;
+}
+
+.image {
+    vertical-align: middle;
+    border-style: none;
+    width: 39px;
+    padding: 6px;
+}
+
 .Item {
-    margin: 16px;
-    border: double;
-    background-color: seagreen;
+    width: 100%;
+    height: auto;
+    padding: 5px;
+}
+
+.Item-Complete {
+    text-decoration: line-through;
+    opacity: 0.3;
+}
+
+.CheckBox {
+    float: left;
+    width: 23px;
+    margin-left: 15px;
+}
+
+.ItemText {
+    width: 82%;
+    margin-left: 7px;
+    margin-top: 7px;
+    float: left;
+}
+
+.Delete {
+    width: 25px;
+    margin-top: 6px;
+    opacity: 0;
+    transition: all .2s;
+}
+
+.Item:hover .Delete {
+    opacity: .5;
+}
+
+.FooTer {
+    padding-bottom: 19px;
 }
