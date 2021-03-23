@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./HeaDer.css";
 import deleteImg from "./images/delete.svg";
-
+import penImg from "./images/pen.svg";
 class Item extends Component {
   constructor(props) {
     super(props);
@@ -16,14 +16,21 @@ class Item extends Component {
   // };
 
   handleClick = () => {
-    const { onChangeToDoList, tuDoIndex } = this.props;
-    onChangeToDoList(tuDoIndex);
+    const { onChangeToDoList, toDoIndex } = this.props;
+    onChangeToDoList(toDoIndex);
   };
 
   onDeleteItem = () => {
     const { onDeleteToDoList, toDoIndex } = this.props;
     onDeleteToDoList(toDoIndex);
   };
+
+  onChangeItem = () => {
+    const { onClickItemToDoList, toDoIndex, item } = this.props;
+    //console.log(this.props.toDoIndex);
+    onClickItemToDoList(toDoIndex, item);
+  };
+
   render() {
     const { item, onChangeToDoList, toDoIndex, onDeleteToDoList } = this.props;
     let nameClass = "ItemText";
@@ -36,9 +43,10 @@ class Item extends Component {
           className="CheckBox"
           type="checkbox"
           onClick={this.handleClick}
-          defaultChecked={item.isComplete}
+          checked={item.isComplete}
         />
         <p className={nameClass}>{item.title}</p>
+        <img className="Pen" src={penImg} onClick={this.onChangeItem} />
         <img className="Delete" src={deleteImg} onClick={this.onDeleteItem} />
         <hr />
       </div>

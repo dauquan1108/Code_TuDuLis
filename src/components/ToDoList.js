@@ -8,7 +8,7 @@ class ToDoList extends Component {
   }
 
   render() {
-    const { toDoList, onChangeInApp , onDeleteComponent } = this.props;
+    const { toDoList, onChangeUnderlinedApp, onDeleteApp, onClickItemApp } = this.props;
     return (
       <div>
         {toDoList.map((item, index) => {
@@ -16,9 +16,9 @@ class ToDoList extends Component {
             <Item
               item={item}
               toDoIndex={index}
-              onChangeToDoList={onChangeInApp}
-              onDeleteToDoList= {onDeleteComponent}
-              
+              onChangeToDoList={onChangeUnderlinedApp}
+              onDeleteToDoList={onDeleteApp}
+              onClickItemToDoList= {onClickItemApp}
             />
           );
         })}
@@ -28,4 +28,3 @@ class ToDoList extends Component {
 }
 
 export default ToDoList;
-

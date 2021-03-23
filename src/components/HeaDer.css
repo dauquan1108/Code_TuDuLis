@@ -60,6 +60,18 @@ input {
     float: left;
 }
 
+.Pen {
+    width: 25px;
+    margin-top: 6px;
+    opacity: 0;
+    margin-right: 10px;
+    transition: all 2.s;
+}
+
+.Item:hover .Pen {
+    opacity: 1;
+}
+
 .Delete {
     width: 25px;
     margin-top: 6px;
