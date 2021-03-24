@@ -4,6 +4,7 @@ import "./components/HeaDer.css";
 import HeaDer from "./components/HeaDer";
 import ToDoList from "./components/ToDoList";
 import Footer from "./components/Footer";
+var all = true;
 class App extends Component {
   constructor(props) {
     super(props);
@@ -11,9 +12,10 @@ class App extends Component {
       checkAll: false,
       toDoList: [
         { title: "Co len nao", isComplete: false },
-        { title: "Di hoc nao", isComplete: false },
+        { title: "Di hoc nao", isComplete: true },
       ],
       taskEditing: null,
+      number: 0,
     };
   }
   //them moi
@@ -46,8 +48,16 @@ class App extends Component {
     });
   };
   // check all
-  checkAll = (event) => {
-    // debugger;
+  checkAll = () => {
+    if (all === true) {
+      this.checkAll1();
+      all = false;
+    } else {
+      this.checkAll2();
+      all = true;
+    }
+  };
+  checkAll1 = () => {
     const { toDoList } = this.state;
     const test = toDoList.map((item, index) => {
       if (item.isComplete === false) {
@@ -58,15 +68,27 @@ class App extends Component {
     this.setState({
       toDoList: test,
     });
-    //  debugger;
   };
-  // checkAllApp2 = () => {
-  //   const { toDoList } = this.state;
-  //   const 
-  // };
+  checkAll2 = () => {
+    const { toDoList } = this.state;
+    const test = toDoList.map((item, index) => {
+      if (item.isComplete === true) {
+        item.isComplete = false;
+      }
+      return item;
+    });
+    this.setState({
+      toDoList: test,
+    });
+  };
+
+  onClickA =(value)=>{
+    this.setState(_state => ({
+      number: value
+    }));
+  }
 
   render() {
-    console.log("this.state.taskEditing}", this.state.taskEditing);
     return (
       <div className="App">
         <HeaDer
@@ -79,8 +101,11 @@ class App extends Component {
           onChangeUnderlinedApp={this.clickUnderlined}
           onDeleteApp={this.onDelete}
           onClickItemApp={this.itemClick}
+          onClickActive={this.props.onClickActive}
+          onClickA = {this.onClickA}
         />
-        <Footer />
+       
+        <Footer onClickActive={this.onClickActive} number={this.state.number} />
       </div>
     );
   }

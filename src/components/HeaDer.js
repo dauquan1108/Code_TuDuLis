@@ -5,7 +5,7 @@ class HeaDer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: props.task? props.task.title : "",
+      value: props.task ? props.task.title : "",
     };
   }
 
@@ -23,12 +23,11 @@ class HeaDer extends Component {
   };
 
   onclick = () => {
-    const {value} = this.state;
-    const {addToDo} = this.props;
+    const { value } = this.state;
+    const { addToDo } = this.props;
     this.setState({
       value: "",
     });
-    // const {addTodo} = this.props; cach 2
     if (value.length > 0) {
       addToDo(value);
     } else {
@@ -45,25 +44,21 @@ class HeaDer extends Component {
   };
 
   onClickCheckAll = () => {
-    const {checkAllApp} = this.props;
-    debugger;
+    const { checkAllApp } = this.props;
     checkAllApp();
-  }
+  };
 
   render() {
-    const { task,checkAllApp } = this.props;
-    console.log( {task});
+    const { task, checkAllApp } = this.props;
     return (
       <div className="Header">
-        
-        <img className="image" src={checkAll} onClick= {this.onClickCheckAll}/>
+        <img className="image" src={checkAll} onClick={this.onClickCheckAll} />
         <input
           type="text"
           placeholder="What needs to be done?"
           value={this.state.value}
           onChange={this.handleInput}
           autoFocus
-          onKeyDown={this.handleOnKeyDown}
         />
         <button className="button" onClick={this.onclick}>
           {" "}

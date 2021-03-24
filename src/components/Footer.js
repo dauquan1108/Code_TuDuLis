@@ -2,24 +2,29 @@ import React, { Component } from "react";
 import "./HeaDer.css";
 import "./index.css";
 class Footer extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
+    const {onClickActive, number} = this.props;
+    
     return (
       <div className="FooTer">
         <footer className="footer">
           <span className="todo-count">
-            <strong>0</strong> item left
+            <strong>{number}</strong> item left
           </span>
           <ul className="filters">
             <li>
-              <a className="selected" href="#/">
+              <a className="selected" >
                 All
               </a>
             </li>
             <li>
-              <a className="#/active">Active</a>
+              <a className="active" onClick={onClickActive}>Active</a>
             </li>
             <li>
-              <a className="#/completed">Completed</a>
+              <a className="completed">Completed</a>
             </li>
           </ul>
           {/* <button className="clear-completed">Clear completed</button> */}
