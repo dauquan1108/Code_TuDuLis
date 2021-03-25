@@ -27,8 +27,9 @@ class Item extends Component {
 
   onChangeItem = () => {
     const { onClickItemToDoList, toDoIndex, item } = this.props;
-    //console.log(this.props.toDoIndex);
+    console.log('toDoIndex', toDoIndex);
     onClickItemToDoList(toDoIndex, item);
+    
   };
 
   render() {

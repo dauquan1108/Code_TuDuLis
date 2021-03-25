@@ -4,6 +4,7 @@ import "./components/HeaDer.css";
 import HeaDer from "./components/HeaDer";
 import ToDoList from "./components/ToDoList";
 import Footer from "./components/Footer";
+import Cong from "./tuan6/Cong";
 var all = true;
 class App extends Component {
   constructor(props) {
@@ -11,23 +12,38 @@ class App extends Component {
     this.state = {
       checkAll: false,
       toDoList: [
-        { title: "Co len nao", isComplete: false },
-        { title: "Di hoc nao", isComplete: true },
+        { id: 1, title: "Co len nao", isComplete: false },
+        { id: 2, title: "Di hoc nao", isComplete: true },
       ],
       taskEditing: null,
+      indexEditing: null,
       number: 0,
     };
   }
-  //them moi
-  addToDo = (value) => {
-    const toDoList = this.state.toDoList;
+  componentDidMount() {
     this.setState({
-      toDoList: [{ title: value, isComplete: false }, ...this.state.toDoList],
-    });
+      number: this.state.toDoList.length
+    })
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if(prevState.toDoList.length !== this.state.toDoList.length) {
+      this.setState({
+        number: this.state.toDoList.length
+      })
+    }
+  }
+
+  //them moi
+  addToDo = (value, toDoIndex) => {
+    const { toDoList } = this.state;
+      this.setState({
+        toDoList: [{ id: toDoList.length+1, title: value, isComplete: false }, ...this.state.toDoList],
+      });
   };
+
   //gach Chan
   clickUnderlined = (toDoIndex) => {
-    var toDoList = this.state.toDoList;
+    var { toDoList } = this.state;
     toDoList[toDoIndex].isComplete = !toDoList[toDoIndex].isComplete; // [1] false = ![1] true
     this.setState({ toDoList });
   };
@@ -40,11 +56,10 @@ class App extends Component {
     }
   };
   //Item Click
-  itemClick = (toDoIndex) => {
-    let { toDoList } = this.state;
-    var taskEdit = toDoList[toDoIndex];
+  itemClick = (toDoIndex, item) => {
     this.setState({
-      taskEditing: taskEdit,
+      taskEditing: item,
+      indexEditing: toDoIndex,
     });
   };
   // check all
@@ -57,6 +72,7 @@ class App extends Component {
       all = true;
     }
   };
+
   checkAll1 = () => {
     const { toDoList } = this.state;
     const test = toDoList.map((item, index) => {
@@ -82,10 +98,20 @@ class App extends Component {
     });
   };
 
-  onClickA =(value)=>{
-    this.setState(_state => ({
-      number: value
+  onClickA = (value) => {
+    this.setState((_state) => ({
+      number: value,
     }));
+  };
+  handleUpdate = (title) => {
+    const {toDoList, taskEditing, indexEditing} = this.state;
+    taskEditing.title = title;
+    toDoList.splice(indexEditing, 1, taskEditing)
+    this.setState({
+      toDoList: [...toDoList],
+      taskEditing: null,
+      indexEditing: null,
+    })
   }
 
   render() {
@@ -95,6 +121,8 @@ class App extends Component {
           addToDo={this.addToDo}
           task={this.state.taskEditing}
           checkAllApp={this.checkAll}
+          handleUpdate={this.handleUpdate}
+          indexEditing={this.state.indexEditing}
         />
         <ToDoList
           toDoList={this.state.toDoList}
@@ -102,10 +130,11 @@ class App extends Component {
           onDeleteApp={this.onDelete}
           onClickItemApp={this.itemClick}
           onClickActive={this.props.onClickActive}
-          onClickA = {this.onClickA}
+          onClickA={this.onClickA}
         />
-       
+
         <Footer onClickActive={this.onClickActive} number={this.state.number} />
+        {/* <Cong/> */}
       </div>
     );
   }

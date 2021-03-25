@@ -5,17 +5,36 @@ class HeaDer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: props.task ? props.task.title : "",
+      id :"",
+      value: "",
+      idEdit: null,
     };
   }
 
+  // cach 1:
+//   static getDerivedStateFromProps(nextProps, prevState){
+//     const {indexEditing, task} = nextProps;
+//     if(indexEditing !== null && prevState.idEdit === null){
+//       return {
+//         value: task.title,
+//         idEdit: indexEditing,
+//       };
+//    } else if( task && task.title !== prevState.value && prevState.idEdit !== indexEditing) {
+//     return {
+//       value: task.title,
+//       idEdit: indexEditing,
+//     };
+//    }
+//    else return null;
+//  }
+ // cach 2:
   componentDidUpdate(prevProps) {
-    const { task } = this.props;
-    if (prevProps.task !== task) {
-      this.setValue(task.title);
+    if (this.props.indexEditing !== prevProps.indexEditing && this.props.task) {
+      this.setState({
+        value: this.props.task.title,
+      });
     }
   }
-
   setValue = (title) => {
     this.setState({
       value: title,
@@ -24,18 +43,23 @@ class HeaDer extends Component {
 
   onclick = () => {
     const { value } = this.state;
-    const { addToDo } = this.props;
-    this.setState({
-      value: "",
-    });
-    if (value.length > 0) {
+
+    const {handleUpdate, task, addToDo} = this.props;
+
+    if(task) {
+      handleUpdate(value)
+    } else if (value.length > 0) {
       addToDo(value);
-    } else {
-      return;
     }
+    this.setState({
+      value: '',
+      idEdit: null
+    })
   };
 
   handleInput = (event) => {
+    const {handleUpdate, task} = this.props;
+
     const text = event.target.value;
     this.setState({
       value: text,
