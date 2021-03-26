@@ -40,7 +40,7 @@ class Item extends Component {
         <p className={nameClass}>{item.title}</p>
         <img className="Pen" src={penImg} onClick={this.onChangeItem} />
         <img className="Delete" src={deleteImg} onClick={this.onDeleteItem} />
-        <hr />
+        <hr className="HR" />
       </div>
     );
   }

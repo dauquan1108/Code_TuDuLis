@@ -37,21 +37,20 @@ input {
 }
 
 .Item {
-    width: 100%;
+    width: 97%;
     height: auto;
-    padding: 5px;
+    margin: 10px;
 }
 
 .CheckBox {
     float: left;
-    width: 23px;
-    margin-left: 15px;
+    width: 22px;
+    margin-left: 12px;
+    margin-top: -7px;
 }
 
 .ItemText {
-    width: 82%;
-    margin-left: 7px;
-    margin-top: 7px;
+    width: 85%;
     float: left;
 }
 
@@ -62,7 +61,7 @@ input {
 
 .Pen {
     width: 25px;
-    margin-top: 6px;
+    margin-top: -10px;
     opacity: 0;
     margin-right: 10px;
     transition: all 2.s;
@@ -74,7 +73,7 @@ input {
 
 .Delete {
     width: 25px;
-    margin-top: 6px;
+    margin-top: -10px;
     opacity: 0;
     transition: all .2s;
 }
@@ -85,4 +84,9 @@ input {
 
 .FooTer {
     padding-bottom: 19px;
+}
+
+.HR {
+    margin-top: 6px;
+    margin-bottom: 6px;
 }
