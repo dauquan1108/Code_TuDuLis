@@ -5,15 +5,11 @@ import "./HeaDer.css";
 class ToDoList extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      numberToDoList: 5,
-    };
   }
   onChanActive = () => {
     const { onClickActive } = this.props;
     console.log("Xin chao day la phai todolist");
   };
-
 
   render() {
     const {
@@ -21,12 +17,11 @@ class ToDoList extends Component {
       onChangeUnderlinedApp,
       onDeleteApp,
       onClickItemApp,
-      onClickA,
+      checkItem
     } = this.props;
-
     return (
       <div>
-        <a onClick={()=>onClickA(toDoList.lengths)}>Nhap</a>
+         {/* <a onClick={() => onClickA(toDoList.length)}>Nhap</a> */}
         {toDoList.map((item, index) => {
           return (
             <Item
@@ -37,6 +32,7 @@ class ToDoList extends Component {
               onDeleteToDoList={onDeleteApp}
               onClickItemToDoList={onClickItemApp}
               onChange={this.onChanActive}
+              checkItem= {checkItem}
             />
           );
         })}

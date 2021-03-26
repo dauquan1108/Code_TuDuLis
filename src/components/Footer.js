@@ -6,8 +6,8 @@ class Footer extends Component {
     super(props);
   }
   render() {
-    const {onClickActive, number} = this.props;
-    
+    const { onClickActive, number } = this.props;
+    console.log("number ben footer", number);
     return (
       <div className="FooTer">
         <footer className="footer">
@@ -16,12 +16,12 @@ class Footer extends Component {
           </span>
           <ul className="filters">
             <li>
-              <a className="selected" >
-                All
-              </a>
+              <a className="selected">All</a>
             </li>
             <li>
-              <a className="active" onClick={onClickActive}>Active</a>
+              <a className="active" onClick={onClickActive}>
+                Active
+              </a>
             </li>
             <li>
               <a className="completed">Completed</a>

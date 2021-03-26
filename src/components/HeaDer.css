@@ -42,11 +42,6 @@ input {
     padding: 5px;
 }
 
-.Item-Complete {
-    text-decoration: line-through;
-    opacity: 0.3;
-}
-
 .CheckBox {
     float: left;
     width: 23px;
@@ -58,6 +53,11 @@ input {
     margin-left: 7px;
     margin-top: 7px;
     float: left;
+}
+
+.Item-Complete {
+    text-decoration: line-through;
+    opacity: 0.3;
 }
 
 .Pen {

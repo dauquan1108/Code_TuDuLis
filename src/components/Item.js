@@ -2,22 +2,15 @@ import React, { Component } from "react";
 import "./HeaDer.css";
 import deleteImg from "./images/delete.svg";
 import penImg from "./images/pen.svg";
+import ToDoList from "./ToDoList";
 class Item extends Component {
   constructor(props) {
     super(props);
   }
-  // Thưc thi ngay lập tức: onClick = {this.props.onclick(item)};
-
-  // Chờ thực thi  onClick = {() => this.props.onclick(item)}
-
-  // onclick = () => {
-  //   const item = this.props.item;
-  //   this.props.onclick(item); // lay ra key cua du lieu
-  // };
-
   handleClick = () => {
-    const { onChangeToDoList, toDoIndex } = this.props;
+    const { onChangeToDoList, toDoIndex, item, checkItem } = this.props;
     onChangeToDoList(toDoIndex);
+    checkItem();
   };
 
   onDeleteItem = () => {
@@ -27,9 +20,7 @@ class Item extends Component {
 
   onChangeItem = () => {
     const { onClickItemToDoList, toDoIndex, item } = this.props;
-    console.log('toDoIndex', toDoIndex);
     onClickItemToDoList(toDoIndex, item);
-    
   };
 
   render() {

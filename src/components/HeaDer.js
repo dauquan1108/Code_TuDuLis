@@ -5,30 +5,30 @@ class HeaDer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      id :"",
       value: "",
       idEdit: null,
     };
   }
 
   // cach 1:
-//   static getDerivedStateFromProps(nextProps, prevState){
-//     const {indexEditing, task} = nextProps;
-//     if(indexEditing !== null && prevState.idEdit === null){
-//       return {
-//         value: task.title,
-//         idEdit: indexEditing,
-//       };
-//    } else if( task && task.title !== prevState.value && prevState.idEdit !== indexEditing) {
-//     return {
-//       value: task.title,
-//       idEdit: indexEditing,
-//     };
-//    }
-//    else return null;
-//  }
- // cach 2:
+  //   static getDerivedStateFromProps(nextProps, prevState){
+  //     const {indexEditing, task} = nextProps;
+  //     if(indexEditing !== null && prevState.idEdit === null){
+  //       return {
+  //         value: task.title,
+  //         idEdit: indexEditing,
+  //       };
+  //    } else if( task && task.title !== prevState.value && prevState.idEdit !== indexEditing) {
+  //     return {
+  //       value: task.title,
+  //       idEdit: indexEditing,
+  //     };
+  //    }
+  //    else return null;
+  //  }
+  // cach 2:
   componentDidUpdate(prevProps) {
+    // debugger;
     if (this.props.indexEditing !== prevProps.indexEditing && this.props.task) {
       this.setState({
         value: this.props.task.title,
@@ -43,23 +43,19 @@ class HeaDer extends Component {
 
   onclick = () => {
     const { value } = this.state;
-
-    const {handleUpdate, task, addToDo} = this.props;
-
-    if(task) {
-      handleUpdate(value)
+    const { handleUpdate, task, addToDo } = this.props;
+    if (task) {
+      handleUpdate(value);
     } else if (value.length > 0) {
       addToDo(value);
     }
     this.setState({
-      value: '',
-      idEdit: null
-    })
+      value: "",
+      idEdit: null,
+    });
   };
 
   handleInput = (event) => {
-    const {handleUpdate, task} = this.props;
-
     const text = event.target.value;
     this.setState({
       value: text,
@@ -73,7 +69,7 @@ class HeaDer extends Component {
   };
 
   render() {
-    const { task, checkAllApp } = this.props;
+    const { task, checkAllApp, indexEditing, handleUpdate } = this.props;
     return (
       <div className="Header">
         <img className="image" src={checkAll} onClick={this.onClickCheckAll} />
@@ -85,8 +81,7 @@ class HeaDer extends Component {
           autoFocus
         />
         <button className="button" onClick={this.onclick}>
-          {" "}
-          Submit{" "}
+          Submit
         </button>
       </div>
     );

@@ -4,7 +4,7 @@ import "./components/HeaDer.css";
 import HeaDer from "./components/HeaDer";
 import ToDoList from "./components/ToDoList";
 import Footer from "./components/Footer";
-import Cong from "./tuan6/Cong";
+// import Cong from "./tuan6/Cong";
 var all = true;
 class App extends Component {
   constructor(props) {
@@ -12,38 +12,48 @@ class App extends Component {
     this.state = {
       checkAll: false,
       toDoList: [
-        { id: 1, title: "Co len nao", isComplete: false },
-        { id: 2, title: "Di hoc nao", isComplete: true },
+        { title: "Co len nao", isComplete: false },
+        { title: "Di hoc nao", isComplete: true },
+        { title: "Di ngu", isComplete: false },
       ],
       taskEditing: null,
       indexEditing: null,
       number: 0,
+      toDoToShow: "all",
     };
   }
+
   componentDidMount() {
+    const { toDoList } = this.state;
     this.setState({
-      number: this.state.toDoList.length
-    })
+      number: toDoList.filter((num) => !num.isComplete).length,
+    });
   }
-  componentDidUpdate(prevProps, prevState) {
-    if(prevState.toDoList.length !== this.state.toDoList.length) {
-      this.setState({
-        number: this.state.toDoList.length
-      })
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   debugger;
+  //   if (prevState.toDoList.length !== this.state.toDoList.length) {
+  //     this.setState({
+  //       number: this.state.toDoList.length,
+  //     });
+  //   }
+  // }
 
   //them moi
   addToDo = (value, toDoIndex) => {
+    debugger;
     const { toDoList } = this.state;
-      this.setState({
-        toDoList: [{ id: toDoList.length+1, title: value, isComplete: false }, ...this.state.toDoList],
-      });
+    this.setState({
+      toDoList: [
+        { id: toDoList.length + 1, title: value, isComplete: false },
+        ...this.state.toDoList,
+      ],
+      number: toDoList.filter((num) => !num.isComplete).length + 1,
+    });
   };
 
   //gach Chan
   clickUnderlined = (toDoIndex) => {
-    var { toDoList } = this.state;
+    let { toDoList } = this.state;
     toDoList[toDoIndex].isComplete = !toDoList[toDoIndex].isComplete; // [1] false = ![1] true
     this.setState({ toDoList });
   };
@@ -52,7 +62,10 @@ class App extends Component {
     let { toDoList } = this.state;
     if (toDoIndex !== -1) {
       let a = toDoList.splice(toDoIndex, 1);
-      this.setState({ toDoList });
+      this.setState({
+        toDoList,
+        number: toDoList.filter((num) => !num.isComplete).length,
+      });
     }
   };
   //Item Click
@@ -64,6 +77,7 @@ class App extends Component {
   };
   // check all
   checkAll = () => {
+    const { toDoList } = this.state;
     if (all === true) {
       this.checkAll1();
       all = false;
@@ -71,6 +85,9 @@ class App extends Component {
       this.checkAll2();
       all = true;
     }
+    this.setState({
+      number: toDoList.filter((num) => !num.isComplete).length,
+    });
   };
 
   checkAll1 = () => {
@@ -104,36 +121,63 @@ class App extends Component {
     }));
   };
   handleUpdate = (title) => {
-    const {toDoList, taskEditing, indexEditing} = this.state;
+    debugger;
+    const { toDoList, taskEditing, indexEditing } = this.state;
     taskEditing.title = title;
-    toDoList.splice(indexEditing, 1, taskEditing)
+    toDoList.splice(indexEditing, 1, taskEditing);
     this.setState({
       toDoList: [...toDoList],
       taskEditing: null,
       indexEditing: null,
-    })
-  }
+    });
+  };
+
+  checkItem = () => {
+    const { toDoList } = this.state;
+    const itemLeft = toDoList.filter((num) => !num.isComplete).length;
+    this.setState({
+      number: itemLeft,
+    });
+  };
 
   render() {
+    const {
+      taskEditing,
+      indexEditing,
+      number,
+      toDoList,
+      toDoIndex,
+    } = this.state;
+    // let toDoList=[];
+    // if (this.state.toDoToShow === "all") {
+    //   const { toDoList } = this.state;
+    // } else if (this.state.toDoToShow === "Active") {
+    //   toDoList = this.state.ToDoList.filter((num) => !num.isComplete);
+    // } else if (this.state.toDoToShow === "completed") {
+    //   toDoList = this.state.ToDoList.filter((num) => num.isComplete);
+    // }
+
     return (
       <div className="App">
         <HeaDer
           addToDo={this.addToDo}
-          task={this.state.taskEditing}
+          task={taskEditing}
+          indexEditing={indexEditing}
           checkAllApp={this.checkAll}
           handleUpdate={this.handleUpdate}
-          indexEditing={this.state.indexEditing}
         />
         <ToDoList
-          toDoList={this.state.toDoList}
+          number={number}
+          toDoList={toDoList}
           onChangeUnderlinedApp={this.clickUnderlined}
           onDeleteApp={this.onDelete}
           onClickItemApp={this.itemClick}
           onClickActive={this.props.onClickActive}
+          checkItem={this.checkItem}
           onClickA={this.onClickA}
         />
 
-        <Footer onClickActive={this.onClickActive} number={this.state.number} />
+        <Footer onClickActive={this.onClickActive} number={number} />
         {/* <Cong/> */}
       </div>
     );
