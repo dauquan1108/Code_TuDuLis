@@ -8,23 +8,22 @@ class Item extends Component {
     super(props);
   }
   handleClick = () => {
-    const { onChangeToDoList, toDoIndex, item, checkItem } = this.props;
-    onChangeToDoList(toDoIndex);
-    checkItem();
+    const { onChangeToDoList, item} = this.props;
+    onChangeToDoList(item.id, item);
   };
 
   onDeleteItem = () => {
-    const { onDeleteToDoList, toDoIndex } = this.props;
-    onDeleteToDoList(toDoIndex);
+    const { onDeleteToDoList, idToDo } = this.props;
+    onDeleteToDoList(idToDo);
   };
 
   onChangeItem = () => {
-    const { onClickItemToDoList, toDoIndex, item } = this.props;
-    onClickItemToDoList(toDoIndex, item);
+    const { onClickItemToDoList, item } = this.props;
+    onClickItemToDoList(item);
   };
 
   render() {
-    const { item, onChangeToDoList, toDoIndex, onDeleteToDoList } = this.props;
+    const { item, onChangeToDoList, idToDo, onDeleteToDoList } = this.props;
     let nameClass = "ItemText";
     if (item.isComplete) {
       nameClass += " Item-Complete";

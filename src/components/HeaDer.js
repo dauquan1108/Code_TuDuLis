@@ -12,29 +12,33 @@ class HeaDer extends Component {
 
   // cach 1:
   //   static getDerivedStateFromProps(nextProps, prevState){
-  //     const {indexEditing, task} = nextProps;
-  //     if(indexEditing !== null && prevState.idEdit === null){
+  //     const {indexTodoEditing, task} = nextProps;
+  //     if(indexTodoEditing !== null && prevState.idEdit === null){
   //       return {
   //         value: task.title,
-  //         idEdit: indexEditing,
+  //         idEdit: indexTodoEditing,
   //       };
-  //    } else if( task && task.title !== prevState.value && prevState.idEdit !== indexEditing) {
+  //    } else if( task && task.title !== prevState.value && prevState.idEdit !== indexTodoEditing) {
   //     return {
   //       value: task.title,
-  //       idEdit: indexEditing,
+  //       idEdit: indexTodoEditing,
   //     };
   //    }
   //    else return null;
   //  }
   // cach 2:
   componentDidUpdate(prevProps) {
-    // debugger;
-    if (this.props.indexEditing !== prevProps.indexEditing && this.props.task) {
+    debugger;
+    if (
+      this.props.idToDoEditing !== prevProps.idToDoEditing &&
+      this.props.toDoEditing
+    ) {
       this.setState({
-        value: this.props.task.title,
+        value: this.props.toDoEditing.title,
       });
     }
   }
+  
   setValue = (title) => {
     this.setState({
       value: title,
@@ -43,8 +47,9 @@ class HeaDer extends Component {
 
   onclick = () => {
     const { value } = this.state;
-    const { handleUpdate, task, addToDo } = this.props;
-    if (task) {
+    debugger;
+    const { handleUpdate, toDoEditing, addToDo } = this.props;
+    if (Object.keys(toDoEditing).length !== 0 && typeof toDoEditing === 'object') {
       handleUpdate(value);
     } else if (value.length > 0) {
       addToDo(value);
@@ -53,6 +58,20 @@ class HeaDer extends Component {
       value: "",
       idEdit: null,
     });
+  };
+
+  onKeyDownAddToDo = (event) => {
+    // const { addToDo } = this.props;
+    // let value = event.target.value;
+    // if (event.keyCode === 13) {
+    //   if (!value.trim()) return;
+    //   else {
+    //     addToDo(value);
+    //   }
+    //   this.setState({
+    //     value: "",
+    //   });
+    // }
   };
 
   handleInput = (event) => {
@@ -69,20 +88,34 @@ class HeaDer extends Component {
   };
 
   render() {
-    const { task, checkAllApp, indexEditing, handleUpdate } = this.props;
+    const {
+      idToDoEditing,
+      toDoEditing,
+      checkAllApp,
+      indexTodoEditing,
+      handleUpdate,
+      isCompletedAll,
+    } = this.props;
     return (
       <div className="Header">
-        <img className="image" src={checkAll} onClick={this.onClickCheckAll} />
+        <img
+          style={{ opacity: isCompletedAll ? 1 : 0.5 }}
+          className="image"
+          src={checkAll}
+          onClick={this.onClickCheckAll}
+        />
         <input
           type="text"
           placeholder="What needs to be done?"
           value={this.state.value}
           onChange={this.handleInput}
           autoFocus
+          onKeyDown={this.onKeyDownAddToDo}
         />
         <button className="button" onClick={this.onclick}>
           Submit
         </button>
+        <hr/>
       </div>
     );
   }

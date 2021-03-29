@@ -5,29 +5,60 @@ class Footer extends Component {
   constructor(props) {
     super(props);
   }
+  onClickAll = () => {
+    const { updateStatusShow } = this.props;
+    updateStatusShow("all");
+  };
+  onClickActive = () => {
+    const { updateStatusShow } = this.props;
+    updateStatusShow("active");
+  };
+  onClickCompleted = () => {
+    const { updateStatusShow } = this.props;
+    updateStatusShow("completed");
+  };
+  removeAllToDoListCompleted = () => {
+    const { removeAllToDoListCompleted } = this.props;
+    removeAllToDoListCompleted();
+  };
+
   render() {
-    const { onClickActive, number } = this.props;
-    console.log("number ben footer", number);
+    const haveCompleted = this.props.toDoList.filter((num) => num.isComplete);
+    const { statusShow, numberToDoActive, toDoList } = this.props;
     return (
       <div className="FooTer">
         <footer className="footer">
           <span className="todo-count">
-            <strong>{number}</strong> item left
+            <strong>{numberToDoActive}</strong> item left
           </span>
           <ul className="filters">
             <li>
-              <a className="selected">All</a>
+              <a
+                className={statusShow === "all" ? "selected" : ""}
+                onClick={this.onClickAll}
+              >
+                All
+              </a>
             </li>
             <li>
-              <a className="active" onClick={onClickActive}>
+              <a
+                className={statusShow === "active" ? "selected" : ""}
+                onClick={this.onClickActive}
+              >
                 Active
               </a>
             </li>
             <li>
-              <a className="completed">Completed</a>
+              <a
+                className={statusShow === "completed" ? "selected" : ""}
+                onClick={this.onClickCompleted}
+              >
+                Completed
+              </a>
             </li>
           </ul>
-          {/* <button className="clear-completed">Clear completed</button> */}
+         { haveCompleted.length > 0 && (  <a className="clear-completed" onClick={this.removeAllToDoListCompleted}>Clear completed </a> )}
+         
         </footer>
       </div>
     );

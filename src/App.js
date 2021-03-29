@@ -1,108 +1,176 @@
 import { Component } from "react";
+import { v4 as uuidv4 } from 'uuid';
 import "./App.css";
 import "./components/HeaDer.css";
 import HeaDer from "./components/HeaDer";
 import ToDoList from "./components/ToDoList";
 import Footer from "./components/Footer";
 // import Cong from "./tuan6/Cong";
-var all = true;
+
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      checkAll: false,
       toDoList: [
-        { title: "Co len nao", isComplete: false },
-        { title: "Di hoc nao", isComplete: true },
-        { title: "Di ngu", isComplete: false },
+        // { id: 1, title: "a1", isComplete: false },
+        // { id: 2,title: "a2", isComplete: true },
+        // { id: 3,title: "a3", isComplete: false },
       ],
-      taskEditing: null,
-      indexEditing: null,
-      number: 0,
-      toDoToShow: "all",
+
+      toDoListView: [],
+      statusShow: "all", // statusShow = all || active || completed
+
+
+      idToDoEditing : null,
+      toDoEditing: {},
+      indexTodoEditing: 0,
+
+      isCompletedAll: false,
     };
   }
 
-  componentDidMount() {
-    const { toDoList } = this.state;
-    this.setState({
-      number: toDoList.filter((num) => !num.isComplete).length,
-    });
+  static getDerivedStateFromProps(props, state) {
+    // TODO: Tính toán lại thằng toDoListView dựa trên thằng toDoList, statusShow
+    const { toDoList, statusShow } = state;
+
+    let toDoListView = toDoList;
+    let toDoListCompleted = toDoList.filter((num) => num.isComplete);
+
+    switch (statusShow) {
+      case "active": {
+        toDoListView = toDoList.filter((num) => !num.isComplete);
+        break;
+      }
+      case "completed": {
+        toDoListView = toDoListCompleted;
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+
+    return {
+      toDoListView,
+      isCompletedAll: toDoListCompleted.length === toDoList.length,
+    };
   }
-  // componentDidUpdate(prevProps, prevState) {
-  //   debugger;
-  //   if (prevState.toDoList.length !== this.state.toDoList.length) {
-  //     this.setState({
-  //       number: this.state.toDoList.length,
-  //     });
-  //   }
-  // }
 
   //them moi
-  addToDo = (value, toDoIndex) => {
-    debugger;
+  addToDo = (value) => {
     const { toDoList } = this.state;
     this.setState({
       toDoList: [
-        { id: toDoList.length + 1, title: value, isComplete: false },
+        { id: uuidv4(), title: value, isComplete: false },
         ...this.state.toDoList,
       ],
-      number: toDoList.filter((num) => !num.isComplete).length + 1,
+    });
+  };
+
+  //hinh Sua
+  onDelete = (id) => {
+    const { toDoList } = this.state;
+
+    const copyTodoList = [...toDoList];
+    // loc ra nhung phan tu khong bang id
+    const todoListDeleted = copyTodoList.filter((todo) => {
+      return todo.id !== id;
+    });
+    this.setState({
+      toDoList: todoListDeleted,
+    });
+  };
+
+  handleUpdate = (title) => {
+    const { toDoList, toDoEditing } = this.state;
+    debugger;
+    console.log('toDoList', toDoList);
+    toDoEditing.title = title;
+    let indexEdit
+    toDoList.map((item, index) => {
+      if(item.id === toDoEditing.id) {
+        indexEdit = index
+      }
+    });
+    const newToDoList = [...toDoList];
+    newToDoList.splice(indexEdit, 1, toDoEditing);
+
+    indexEdit && this.setState({
+      toDoList: [...newToDoList],
+      toDoEditing: null,
+      indexTodoEditing: null,
     });
   };
 
   //gach Chan
-  clickUnderlined = (toDoIndex) => {
-    let { toDoList } = this.state;
-    toDoList[toDoIndex].isComplete = !toDoList[toDoIndex].isComplete; // [1] false = ![1] true
-    this.setState({ toDoList });
-  };
-  //hinh Sua
-  onDelete = (toDoIndex) => {
-    let { toDoList } = this.state;
-    if (toDoIndex !== -1) {
-      let a = toDoList.splice(toDoIndex, 1);
-      this.setState({
-        toDoList,
-        number: toDoList.filter((num) => !num.isComplete).length,
-      });
-    }
-  };
-  //Item Click
-  itemClick = (toDoIndex, item) => {
-    this.setState({
-      taskEditing: item,
-      indexEditing: toDoIndex,
-    });
-  };
-  // check all
-  checkAll = () => {
+  clickUnderlined = (id) => {
     const { toDoList } = this.state;
-    if (all === true) {
-      this.checkAll1();
-      all = false;
-    } else {
-      this.checkAll2();
-      all = true;
-    }
+    let copyTodoList = [...toDoList];
+    // so sanh id ban dau voi id duoc truyen tu thang con gui toi neu 2 id bang nhau thi moi thuc hien khoi lenhj
+    copyTodoList.map(todo => {
+      if (todo.id === id) {
+        todo.isComplete = !todo.isComplete;
+        return;
+      }
+    });
+
+    //toDoList[id].isComplete = !toDoList[id].isComplete; // [1] false = ![1] true
+    /**
+     * clickUnderlined(indexTodo); => indexTodo = 0;
+     * todoList = [
+     *      {id: 1, title: 'Di an com', isComplete: true}
+     *      {id: 2, title: 'Di choi', isComplete: false}
+     *      {id: 3, title: 'Coding', isComplete: false}
+     *      {id: 4, title: 'Java', isComplete: false}
+     *      {id: 5, title: 'Javascript', isComplete: false}
+     *      {id: 6, title: 'PHP', isComplete: false}
+     *      {id: 7, title: 'HTML', isComplete: false}
+     *     ]
+     * toDoList[toDoIndex].isComplete = !toDoList[toDoIndex].isComplete; // [1] false = ![1] true
+     * 
+     * => A[0].isComplate = !A[0].isComplate;
+     */
+    this.setState({ toDoList: copyTodoList });
+    // this.setState({ toDoList });
+  };
+
+  //Item Click
+  itemClick = (item) => {
+    console.log('id', item.id);
+    console.log('item', item);
     this.setState({
-      number: toDoList.filter((num) => !num.isComplete).length,
+      idToDoEditing: item.id,
+      toDoEditing: item,
+      //indexTodoEditing: toDoIndex,
     });
   };
 
-  checkAll1 = () => {
+  // check all
+  checkAll = () => {
+    const { toDoList, isCompletedAll } = this.state;
+    if (isCompletedAll) {
+      this.removeCompletedAll();
+    } else {
+      this.completedAll();
+    }
+  };
+
+  completedAll = () => {
     const { toDoList } = this.state;
+    debugger;
     const test = toDoList.map((item, index) => {
       if (item.isComplete === false) {
         item.isComplete = true;
       }
       return item;
     });
+    debugger;
     this.setState({
       toDoList: test,
     });
   };
-  checkAll2 = () => {
+
+  removeCompletedAll = () => {
     const { toDoList } = this.state;
     const test = toDoList.map((item, index) => {
       if (item.isComplete === true) {
@@ -115,60 +183,52 @@ class App extends Component {
     });
   };
 
-  onClickA = (value) => {
-    this.setState((_state) => ({
-      number: value,
-    }));
-  };
-  handleUpdate = (title) => {
-    debugger;
-    const { toDoList, taskEditing, indexEditing } = this.state;
-    taskEditing.title = title;
-    toDoList.splice(indexEditing, 1, taskEditing);
+  updateStatusShow = (statusShow) => {
     this.setState({
-      toDoList: [...toDoList],
-      taskEditing: null,
-      indexEditing: null,
+      statusShow,
     });
   };
 
-  checkItem = () => {
+  getNumberToDoActive = () => {
     const { toDoList } = this.state;
-    const itemLeft = toDoList.filter((num) => !num.isComplete).length;
+    const toDoListActive = toDoList.filter((num) => !num.isComplete);
+    return toDoListActive.length;
+  };
+
+  removeAllToDoListCompleted = () => {
+    const { toDoList } = this.state;
     this.setState({
-      number: itemLeft,
+      toDoList: toDoList.filter((num) => !num.isComplete),
     });
   };
 
   render() {
     const {
-      taskEditing,
-      indexEditing,
-      number,
+      toDoListView,
+      idToDoEditing,
+      toDoEditing,
+      indexTodoEditing,
+      statusShow,
       toDoList,
-      toDoIndex,
+      isCompletedAll,
     } = this.state;
-    // let toDoList=[];
-    // if (this.state.toDoToShow === "all") {
-    //   const { toDoList } = this.state;
-    // } else if (this.state.toDoToShow === "Active") {
-    //   toDoList = this.state.ToDoList.filter((num) => !num.isComplete);
-    // } else if (this.state.toDoToShow === "completed") {
-    //   toDoList = this.state.ToDoList.filter((num) => num.isComplete);
-    // }
+    console.log(toDoList);
+    const numberToDoActive = this.getNumberToDoActive();
 
     return (
       <div className="App">
         <HeaDer
+          isCompletedAl={isCompletedAll}
+          idToDoEditing={idToDoEditing}
+          toDoEditing={toDoEditing}
+
+          indexTodoEditing={indexTodoEditing}
           addToDo={this.addToDo}
-          task={taskEditing}
-          indexEditing={indexEditing}
           checkAllApp={this.checkAll}
           handleUpdate={this.handleUpdate}
         />
         <ToDoList
-          number={number}
-          toDoList={toDoList}
+          toDoListView={toDoListView}
           onChangeUnderlinedApp={this.clickUnderlined}
           onDeleteApp={this.onDelete}
           onClickItemApp={this.itemClick}
@@ -176,9 +236,15 @@ class App extends Component {
           checkItem={this.checkItem}
           onClickA={this.onClickA}
         />
-
-        <Footer onClickActive={this.onClickActive} number={number} />
-        {/* <Cong/> */}
+        {toDoList.length > 0 && (
+          <Footer
+            toDoList={toDoList}
+            numberToDoActive={numberToDoActive}
+            updateStatusShow={this.updateStatusShow}
+            statusShow={statusShow}
+            removeAllToDoListCompleted={this.removeAllToDoListCompleted}
+          />
+        )}
       </div>
     );
   }

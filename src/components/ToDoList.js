@@ -8,12 +8,11 @@ class ToDoList extends Component {
   }
   onChanActive = () => {
     const { onClickActive } = this.props;
-    console.log("Xin chao day la phai todolist");
   };
 
   render() {
     const {
-      toDoList,
+      toDoListView,
       onChangeUnderlinedApp,
       onDeleteApp,
       onClickItemApp,
@@ -22,12 +21,12 @@ class ToDoList extends Component {
     return (
       <div>
          {/* <a onClick={() => onClickA(toDoList.length)}>Nhap</a> */}
-        {toDoList.map((item, index) => {
+        {toDoListView.map((item, index) => {
           return (
             <Item
-              key={index}
+              key={item.id}
               item={item}
-              toDoIndex={index}
+              idToDo={item.id}
               onChangeToDoList={onChangeUnderlinedApp}
               onDeleteToDoList={onDeleteApp}
               onClickItemToDoList={onClickItemApp}
