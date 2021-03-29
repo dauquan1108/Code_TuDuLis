@@ -7,23 +7,24 @@ class Item extends Component {
   constructor(props) {
     super(props);
   }
-  handleClick = () => {
-    const { onChangeToDoList, item} = this.props;
-    onChangeToDoList(item.id, item);
+
+  onClickCheckBox = () => {
+    const { onClickCheckBox, item, idToDo} = this.props;
+    onClickCheckBox(idToDo, item);
   };
 
   onDeleteItem = () => {
-    const { onDeleteToDoList, idToDo } = this.props;
-    onDeleteToDoList(idToDo);
+    const { onDeleteItem, idToDo } = this.props;
+    onDeleteItem(idToDo);
   };
 
-  onChangeItem = () => {
-    const { onClickItemToDoList, item } = this.props;
-    onClickItemToDoList(item);
+  onClickPen = () => {
+    const { onClickPen, item } = this.props;
+    onClickPen(item);
   };
 
   render() {
-    const { item, onChangeToDoList, idToDo, onDeleteToDoList } = this.props;
+    const { item, idToDo, onClickCheckBox, onDeleteItem } = this.props;
     let nameClass = "ItemText";
     if (item.isComplete) {
       nameClass += " Item-Complete";
@@ -33,11 +34,11 @@ class Item extends Component {
         <input
           className="CheckBox"
           type="checkbox"
-          onClick={this.handleClick}
           checked={item.isComplete}
+          onClick={this.onClickCheckBox}
         />
         <p className={nameClass}>{item.title}</p>
-        <img className="Pen" src={penImg} onClick={this.onChangeItem} />
+        <img className="Pen" src={penImg} onClick={this.onClickPen} />
         <img className="Delete" src={deleteImg} onClick={this.onDeleteItem} />
         <hr className="HR" />
       </div>

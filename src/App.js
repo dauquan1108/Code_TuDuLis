@@ -18,16 +18,14 @@ class App extends Component {
       ],
 
       toDoListView: [],
+      
       statusShow: "all", // statusShow = all || active || completed
 
-
-      idToDoEditing : null,
       toDoEditing: {},
-      indexTodoEditing: 0,
-
-      isCompletedAll: false,
+      idToDoEditing : null,
     };
   }
+  
 
   static getDerivedStateFromProps(props, state) {
     // TODO: Tính toán lại thằng toDoListView dựa trên thằng toDoList, statusShow
@@ -56,7 +54,7 @@ class App extends Component {
     };
   }
 
-  //them moi
+  //thêm mới
   addToDo = (value) => {
     const { toDoList } = this.state;
     this.setState({
@@ -67,10 +65,19 @@ class App extends Component {
     });
   };
 
-  //hinh Sua
-  onDelete = (id) => {
-    const { toDoList } = this.state;
+  // click vào sửa
+  onClickPen = (item) => {
+    console.log('id', item.id);
+    console.log('item', item);
+    this.setState({
+      idToDoEditing: item.id,
+      toDoEditing: item,
+    });
+  };
 
+  // Xóa
+  onDeleteItem = (id) => {
+    const { toDoList } = this.state;
     const copyTodoList = [...toDoList];
     // loc ra nhung phan tu khong bang id
     const todoListDeleted = copyTodoList.filter((todo) => {
@@ -98,12 +105,11 @@ class App extends Component {
     indexEdit && this.setState({
       toDoList: [...newToDoList],
       toDoEditing: null,
-      indexTodoEditing: null,
     });
   };
 
-  //gach Chan
-  clickUnderlined = (id) => {
+  // gạch chân item
+  onClickCheckBox = (id) => {
     const { toDoList } = this.state;
     let copyTodoList = [...toDoList];
     // so sanh id ban dau voi id duoc truyen tu thang con gui toi neu 2 id bang nhau thi moi thuc hien khoi lenhj
@@ -134,19 +140,10 @@ class App extends Component {
     // this.setState({ toDoList });
   };
 
-  //Item Click
-  itemClick = (item) => {
-    console.log('id', item.id);
-    console.log('item', item);
-    this.setState({
-      idToDoEditing: item.id,
-      toDoEditing: item,
-      //indexTodoEditing: toDoIndex,
-    });
-  };
+
 
   // check all
-  checkAll = () => {
+  onClickCheckAllItem = () => {
     const { toDoList, isCompletedAll } = this.state;
     if (isCompletedAll) {
       this.removeCompletedAll();
@@ -164,7 +161,6 @@ class App extends Component {
       }
       return item;
     });
-    debugger;
     this.setState({
       toDoList: test,
     });
@@ -207,34 +203,27 @@ class App extends Component {
       toDoListView,
       idToDoEditing,
       toDoEditing,
-      indexTodoEditing,
       statusShow,
       toDoList,
       isCompletedAll,
     } = this.state;
-    console.log(toDoList);
+    
     const numberToDoActive = this.getNumberToDoActive();
 
     return (
       <div className="App">
         <HeaDer
-          isCompletedAl={isCompletedAll}
           idToDoEditing={idToDoEditing}
           toDoEditing={toDoEditing}
-
-          indexTodoEditing={indexTodoEditing}
           addToDo={this.addToDo}
-          checkAllApp={this.checkAll}
+          onClickCheckAllItem={this.onClickCheckAllItem}
           handleUpdate={this.handleUpdate}
         />
         <ToDoList
           toDoListView={toDoListView}
-          onChangeUnderlinedApp={this.clickUnderlined}
-          onDeleteApp={this.onDelete}
-          onClickItemApp={this.itemClick}
-          onClickActive={this.props.onClickActive}
-          checkItem={this.checkItem}
-          onClickA={this.onClickA}
+          onClickCheckBox={this.onClickCheckBox}
+          onClickPen={this.onClickPen}
+          onDeleteItem={this.onDeleteItem}
         />
         {toDoList.length > 0 && (
           <Footer
@@ -251,4 +240,3 @@ class App extends Component {
 }
 
 export default App;
-/// test

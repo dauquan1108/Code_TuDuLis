@@ -10,42 +10,18 @@ class HeaDer extends Component {
     };
   }
 
-  // cach 1:
-  //   static getDerivedStateFromProps(nextProps, prevState){
-  //     const {indexTodoEditing, task} = nextProps;
-  //     if(indexTodoEditing !== null && prevState.idEdit === null){
-  //       return {
-  //         value: task.title,
-  //         idEdit: indexTodoEditing,
-  //       };
-  //    } else if( task && task.title !== prevState.value && prevState.idEdit !== indexTodoEditing) {
-  //     return {
-  //       value: task.title,
-  //       idEdit: indexTodoEditing,
-  //     };
-  //    }
-  //    else return null;
-  //  }
-  // cach 2:
   componentDidUpdate(prevProps) {
-    debugger;
+    const {idToDoEditing, toDoEditing }= this.props;
     if (
-      this.props.idToDoEditing !== prevProps.idToDoEditing &&
-      this.props.toDoEditing
+      idToDoEditing !== prevProps.idToDoEditing && toDoEditing
     ) {
       this.setState({
-        value: this.props.toDoEditing.title,
+        value: toDoEditing.title,
       });
     }
   }
-  
-  setValue = (title) => {
-    this.setState({
-      value: title,
-    });
-  };
 
-  onclick = () => {
+  onclickSubMit = () => {
     const { value } = this.state;
     debugger;
     const { handleUpdate, toDoEditing, addToDo } = this.props;
@@ -56,7 +32,6 @@ class HeaDer extends Component {
     }
     this.setState({
       value: "",
-      idEdit: null,
     });
   };
 
@@ -82,37 +57,35 @@ class HeaDer extends Component {
     });
   };
 
-  onClickCheckAll = () => {
-    const { checkAllApp } = this.props;
-    checkAllApp();
+  onClickCheckAllItem = () => {
+    const { onClickCheckAllItem } = this.props;
+    onClickCheckAllItem();
   };
 
   render() {
     const {
       idToDoEditing,
       toDoEditing,
-      checkAllApp,
-      indexTodoEditing,
+      onClickCheckAllItem,
       handleUpdate,
-      isCompletedAll,
+      addToDo
     } = this.props;
     return (
       <div className="Header">
         <img
-          style={{ opacity: isCompletedAll ? 1 : 0.5 }}
           className="image"
           src={checkAll}
-          onClick={this.onClickCheckAll}
+          onClick={this.onClickCheckAllItem}
         />
         <input
           type="text"
-          placeholder="What needs to be done?"
+          placeholder="What needs to be done ?"
           value={this.state.value}
           onChange={this.handleInput}
           autoFocus
           onKeyDown={this.onKeyDownAddToDo}
         />
-        <button className="button" onClick={this.onclick}>
+        <button className="button" onClick={this.onclickSubMit}>
           Submit
         </button>
         <hr/>
