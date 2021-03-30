@@ -66,8 +66,10 @@ html .clear-completed:active {
     line-height: 20px;
     text-decoration: none;
     cursor: pointer;
+    color: inherit;
 }
 
 .clear-completed:hover {
     text-decoration: underline;
+    color: inherit;
 }

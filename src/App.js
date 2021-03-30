@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 import "./components/HeaDer.css";
 import HeaDer from "./components/HeaDer";
@@ -13,19 +13,17 @@ class App extends Component {
     this.state = {
       toDoList: [
         // { id: 1, title: "a1", isComplete: false },
-        // { id: 2,title: "a2", isComplete: true },
-        // { id: 3,title: "a3", isComplete: false },
+        // { id: 2, title: "a2", isComplete: true },
+        // { id: 3, title: "a3", isComplete: false },
       ],
 
       toDoListView: [],
-      
+
       statusShow: "all", // statusShow = all || active || completed
 
       toDoEditing: {},
-      idToDoEditing : null,
     };
   }
-  
 
   static getDerivedStateFromProps(props, state) {
     // TODO: Tính toán lại thằng toDoListView dựa trên thằng toDoList, statusShow
@@ -67,12 +65,47 @@ class App extends Component {
 
   // click vào sửa
   onClickPen = (item) => {
-    console.log('id', item.id);
-    console.log('item', item);
+    console.log("id", item.id);
+    console.log("item", item);
     this.setState({
-      idToDoEditing: item.id,
       toDoEditing: item,
     });
+  };
+
+  handleUpdate = (todoItem,  textEdit) => {
+    const { toDoListView, toDoList } = this.state;
+    //debugger;
+
+    toDoListView.map((item) => {
+      if(item.id === todoItem.id){
+        item.title = textEdit;
+      }
+    });
+    this.setState({
+      toDoList:toDoListView,
+      toDoEditing: {},
+    });
+    
+    //toDoListView.slice(idIndex, 1, title.value)
+
+    // console.log("title",title);
+    // debugger;
+    // console.log("toDoList", toDoList);
+    // toDoEditing.title = title;
+    // let indexEdit;
+    // toDoList.map((item, index) => {
+    //   if (item.id === toDoEditing.id) {
+    //     indexEdit = index;
+    //   }
+    // });
+    // const newToDoList = [...toDoList];
+    // newToDoList.splice(indexEdit, 1, toDoEditing);
+
+    // indexEdit &&
+    //   this.setState({
+    //     toDoList: [...newToDoList],
+    //     toDoEditing: null,
+    //   });
   };
 
   // Xóa
@@ -88,32 +121,12 @@ class App extends Component {
     });
   };
 
-  handleUpdate = (title) => {
-    const { toDoList, toDoEditing } = this.state;
-    debugger;
-    console.log('toDoList', toDoList);
-    toDoEditing.title = title;
-    let indexEdit
-    toDoList.map((item, index) => {
-      if(item.id === toDoEditing.id) {
-        indexEdit = index
-      }
-    });
-    const newToDoList = [...toDoList];
-    newToDoList.splice(indexEdit, 1, toDoEditing);
-
-    indexEdit && this.setState({
-      toDoList: [...newToDoList],
-      toDoEditing: null,
-    });
-  };
-
   // gạch chân item
   onClickCheckBox = (id) => {
     const { toDoList } = this.state;
     let copyTodoList = [...toDoList];
     // so sanh id ban dau voi id duoc truyen tu thang con gui toi neu 2 id bang nhau thi moi thuc hien khoi lenhj
-    copyTodoList.map(todo => {
+    copyTodoList.map((todo) => {
       if (todo.id === id) {
         todo.isComplete = !todo.isComplete;
         return;
@@ -133,14 +146,12 @@ class App extends Component {
      *      {id: 7, title: 'HTML', isComplete: false}
      *     ]
      * toDoList[toDoIndex].isComplete = !toDoList[toDoIndex].isComplete; // [1] false = ![1] true
-     * 
+     *
      * => A[0].isComplate = !A[0].isComplate;
      */
     this.setState({ toDoList: copyTodoList });
     // this.setState({ toDoList });
   };
-
-
 
   // check all
   onClickCheckAllItem = () => {
@@ -201,19 +212,16 @@ class App extends Component {
   render() {
     const {
       toDoListView,
-      idToDoEditing,
       toDoEditing,
       statusShow,
       toDoList,
-      isCompletedAll,
     } = this.state;
-    
+
     const numberToDoActive = this.getNumberToDoActive();
 
     return (
       <div className="App">
         <HeaDer
-          idToDoEditing={idToDoEditing}
           toDoEditing={toDoEditing}
           addToDo={this.addToDo}
           onClickCheckAllItem={this.onClickCheckAllItem}

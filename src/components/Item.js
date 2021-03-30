@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "./HeaDer.css";
 import deleteImg from "./images/delete.svg";
 import penImg from "./images/pen.svg";
-import ToDoList from "./ToDoList";
 class Item extends Component {
   constructor(props) {
     super(props);

@@ -11,10 +11,8 @@ class HeaDer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    const {idToDoEditing, toDoEditing }= this.props;
-    if (
-      idToDoEditing !== prevProps.idToDoEditing && toDoEditing
-    ) {
+    const { toDoEditing } = this.props;
+    if (toDoEditing.id !== prevProps.toDoEditing.id) {
       this.setState({
         value: toDoEditing.title,
       });
@@ -23,11 +21,10 @@ class HeaDer extends Component {
 
   onclickSubMit = () => {
     const { value } = this.state;
-    debugger;
     const { handleUpdate, toDoEditing, addToDo } = this.props;
-    if (Object.keys(toDoEditing).length !== 0 && typeof toDoEditing === 'object') {
-      handleUpdate(value);
-    } else if (value.length > 0) {
+    if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
+      handleUpdate(toDoEditing, value);
+    } else if (value.trim()) {
       addToDo(value);
     }
     this.setState({
@@ -36,24 +33,24 @@ class HeaDer extends Component {
   };
 
   onKeyDownAddToDo = (event) => {
-    // const { addToDo } = this.props;
-    // let value = event.target.value;
-    // if (event.keyCode === 13) {
-    //   if (!value.trim()) return;
-    //   else {
-    //     addToDo(value);
-    //   }
-    //   this.setState({
-    //     value: "",
-    //   });
-    // }
+    const { addToDo, handleUpdate, toDoEditing } = this.props;
+    let value = event.target.value;
+    if (event.keyCode === 13) {
+      if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
+        handleUpdate(toDoEditing, value);
+      } else if (value.trim()) {
+        addToDo(value);
+      }
+      this.setState({
+        value: "",
+      });
+    }
   };
 
   handleInput = (event) => {
     const text = event.target.value;
     this.setState({
       value: text,
-      isComplete: false,
     });
   };
 
@@ -68,7 +65,7 @@ class HeaDer extends Component {
       toDoEditing,
       onClickCheckAllItem,
       handleUpdate,
-      addToDo
+      addToDo,
     } = this.props;
     return (
       <div className="Header">
@@ -88,7 +85,7 @@ class HeaDer extends Component {
         <button className="button" onClick={this.onclickSubMit}>
           Submit
         </button>
-        <hr/>
+        <hr />
       </div>
     );
   }
