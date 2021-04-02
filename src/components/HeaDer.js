@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import "./HeaDer.css";
-import checkAll from "./images/checkall.svg";
+import check from "./images/check.svg";
+import checkAll from "./images/checkAll.svg";
 class HeaDer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       value: "",
-      idEdit: null,
     };
   }
 
@@ -31,10 +31,15 @@ class HeaDer extends Component {
       value: "",
     });
   };
+  cleanValue = () => {
+    this.setState({
+      value: "",
+    });
+  };
 
   onKeyDownAddToDo = (event) => {
     const { addToDo, handleUpdate, toDoEditing } = this.props;
-    let value = event.target.value;
+    let { value } = event.target;
     if (event.keyCode === 13) {
       if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
         handleUpdate(toDoEditing, value);
@@ -48,32 +53,23 @@ class HeaDer extends Component {
   };
 
   handleInput = (event) => {
-    const text = event.target.value;
+    let text = event.target.value;
     this.setState({
       value: text,
     });
   };
 
-  onClickCheckAllItem = () => {
-    const { onClickCheckAllItem } = this.props;
-    onClickCheckAllItem();
-  };
-
   render() {
     const {
-      idToDoEditing,
       toDoEditing,
       onClickCheckAllItem,
       handleUpdate,
       addToDo,
+      item,
     } = this.props;
     return (
       <div className="Header">
-        <img
-          className="image"
-          src={checkAll}
-          onClick={this.onClickCheckAllItem}
-        />
+        <img className="image" src={checkAll} onClick={onClickCheckAllItem} />
         <input
           type="text"
           placeholder="What needs to be done ?"

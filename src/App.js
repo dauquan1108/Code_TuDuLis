@@ -1,11 +1,12 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { v4 as uuidv4 } from "uuid";
 import "./App.css";
 import "./components/HeaDer.css";
 import HeaDer from "./components/HeaDer";
 import ToDoList from "./components/ToDoList";
 import Footer from "./components/Footer";
-// import Cong from "./tuan6/Cong";
+// import Class from "./tuan6/Class";
+// import Ref from "./tuan6/Ref";
 
 class App extends Component {
   constructor(props) {
@@ -16,13 +17,11 @@ class App extends Component {
         // { id: 2, title: "a2", isComplete: true },
         // { id: 3, title: "a3", isComplete: false },
       ],
-
       toDoListView: [],
-
       statusShow: "all", // statusShow = all || active || completed
-
       toDoEditing: {},
     };
+    this.myHeader = React.createRef();
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -58,67 +57,44 @@ class App extends Component {
     this.setState({
       toDoList: [
         { id: uuidv4(), title: value, isComplete: false },
-        ...this.state.toDoList,
+        ...toDoList,
       ],
     });
   };
 
   // click vào sửa
-  onClickPen = (item) => {
-    console.log("id", item.id);
-    console.log("item", item);
+  onClickPen = (toDoEditing) => {
     this.setState({
-      toDoEditing: item,
+      toDoEditing,
     });
   };
 
-  handleUpdate = (todoItem,  textEdit) => {
+  handleUpdate = (todoItem, textEdit) => {
     const { toDoListView, toDoList } = this.state;
     //debugger;
 
     toDoListView.map((item) => {
-      if(item.id === todoItem.id){
+      if (item.id === todoItem.id) {
         item.title = textEdit;
       }
     });
     this.setState({
-      toDoList:toDoListView,
+      toDoList: toDoListView,
       toDoEditing: {},
     });
-    
-    //toDoListView.slice(idIndex, 1, title.value)
-
-    // console.log("title",title);
-    // debugger;
-    // console.log("toDoList", toDoList);
-    // toDoEditing.title = title;
-    // let indexEdit;
-    // toDoList.map((item, index) => {
-    //   if (item.id === toDoEditing.id) {
-    //     indexEdit = index;
-    //   }
-    // });
-    // const newToDoList = [...toDoList];
-    // newToDoList.splice(indexEdit, 1, toDoEditing);
-
-    // indexEdit &&
-    //   this.setState({
-    //     toDoList: [...newToDoList],
-    //     toDoEditing: null,
-    //   });
   };
 
   // Xóa
   onDeleteItem = (id) => {
+    debugger;
     const { toDoList } = this.state;
     const copyTodoList = [...toDoList];
     // loc ra nhung phan tu khong bang id
-    const todoListDeleted = copyTodoList.filter((todo) => {
-      return todo.id !== id;
-    });
+    const todoListDeleted = copyTodoList.filter((todo) => todo.id !== id);
     this.setState({
       toDoList: todoListDeleted,
     });
+    this.myHeader.current.cleanValue();
   };
 
   // gạch chân item
@@ -132,25 +108,7 @@ class App extends Component {
         return;
       }
     });
-
-    //toDoList[id].isComplete = !toDoList[id].isComplete; // [1] false = ![1] true
-    /**
-     * clickUnderlined(indexTodo); => indexTodo = 0;
-     * todoList = [
-     *      {id: 1, title: 'Di an com', isComplete: true}
-     *      {id: 2, title: 'Di choi', isComplete: false}
-     *      {id: 3, title: 'Coding', isComplete: false}
-     *      {id: 4, title: 'Java', isComplete: false}
-     *      {id: 5, title: 'Javascript', isComplete: false}
-     *      {id: 6, title: 'PHP', isComplete: false}
-     *      {id: 7, title: 'HTML', isComplete: false}
-     *     ]
-     * toDoList[toDoIndex].isComplete = !toDoList[toDoIndex].isComplete; // [1] false = ![1] true
-     *
-     * => A[0].isComplate = !A[0].isComplate;
-     */
     this.setState({ toDoList: copyTodoList });
-    // this.setState({ toDoList });
   };
 
   // check all
@@ -165,28 +123,25 @@ class App extends Component {
 
   completedAll = () => {
     const { toDoList } = this.state;
-    debugger;
-    const test = toDoList.map((item, index) => {
+    toDoList.map((item, index) => {
       if (item.isComplete === false) {
         item.isComplete = true;
       }
-      return item;
     });
     this.setState({
-      toDoList: test,
+      toDoList,
     });
   };
 
   removeCompletedAll = () => {
     const { toDoList } = this.state;
-    const test = toDoList.map((item, index) => {
+    toDoList.map((item, index) => {
       if (item.isComplete === true) {
         item.isComplete = false;
       }
-      return item;
     });
     this.setState({
-      toDoList: test,
+      toDoList,
     });
   };
 
@@ -210,39 +165,41 @@ class App extends Component {
   };
 
   render() {
-    const {
-      toDoListView,
-      toDoEditing,
-      statusShow,
-      toDoList,
-    } = this.state;
+    const { toDoListView, toDoEditing, statusShow, toDoList } = this.state;
 
     const numberToDoActive = this.getNumberToDoActive();
 
     return (
-      <div className="App">
-        <HeaDer
-          toDoEditing={toDoEditing}
-          addToDo={this.addToDo}
-          onClickCheckAllItem={this.onClickCheckAllItem}
-          handleUpdate={this.handleUpdate}
-        />
-        <ToDoList
-          toDoListView={toDoListView}
-          onClickCheckBox={this.onClickCheckBox}
-          onClickPen={this.onClickPen}
-          onDeleteItem={this.onDeleteItem}
-        />
-        {toDoList.length > 0 && (
-          <Footer
-            toDoList={toDoList}
-            numberToDoActive={numberToDoActive}
-            updateStatusShow={this.updateStatusShow}
-            statusShow={statusShow}
-            removeAllToDoListCompleted={this.removeAllToDoListCompleted}
+      <>
+        <div className="App">
+          <HeaDer
+            //item={this.props.item}
+            toDoEditing={toDoEditing}
+            addToDo={this.addToDo}
+            onClickCheckAllItem={this.onClickCheckAllItem}
+            handleUpdate={this.handleUpdate}
+            ref={this.myHeader}
           />
-        )}
-      </div>
+          <ToDoList
+            toDoListView={toDoListView}
+            onClickCheckBox={this.onClickCheckBox}
+            onClickPen={this.onClickPen}
+            onDeleteItem={this.onDeleteItem}
+          />
+          {toDoList.length > 0 && (
+            <Footer
+              toDoList={toDoList}
+              numberToDoActive={numberToDoActive}
+              updateStatusShow={this.updateStatusShow}
+              statusShow={statusShow}
+              removeAllToDoListCompleted={this.removeAllToDoListCompleted}
+            />
+          )}
+        </div>
+        {/* <div>
+          <Ref />
+        </div> */}
+      </>
     );
   }
 }

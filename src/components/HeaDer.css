@@ -29,6 +29,13 @@ input {
     width: 77px;
     height: 38px;
     border: none;
+    background: #cdcccc47;
+}
+
+.button:hover {
+    transition: all 2.s;
+    color: #e26e29;
+    font-weight: bolder;
 }
 
 .image {
@@ -47,7 +54,7 @@ input {
 .CheckBox {
     float: left;
     width: 22px;
-    margin-left: 12px;
+    margin-left: 20px;
     margin-top: -7px;
 }
 
@@ -63,10 +70,8 @@ input {
 
 .Pen {
     width: 25px;
-    margin-top: -10px;
     opacity: 0;
     margin-right: 10px;
-    transition: all 2.s;
 }
 
 .Item:hover .Pen {
@@ -75,7 +80,6 @@ input {
 
 .Delete {
     width: 25px;
-    margin-top: -10px;
     opacity: 0;
     transition: all .2s;
 }
@@ -86,9 +90,4 @@ input {
 
 .FooTer {
     padding-bottom: 19px;
-}
-
-.HR {
-    margin-top: 6px;
-    margin-bottom: 6px;
 }

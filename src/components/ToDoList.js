@@ -21,7 +21,6 @@ class ToDoList extends Component {
             <Item
               key={item.id}
               item={item}
-              idToDo={item.id}
               onClickCheckBox={onClickCheckBox}
               onDeleteItem={onDeleteItem}
               onClickPen={onClickPen}

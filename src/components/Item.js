@@ -7,23 +7,15 @@ class Item extends Component {
     super(props);
   }
 
-  onClickCheckBox = () => {
-    const { onClickCheckBox, item, idToDo} = this.props;
-    onClickCheckBox(idToDo, item);
-  };
+  // onClickCheckBox = () => {
+  //   const { onClickCheckBox, item } = this.props;
+  //   onClickCheckBox(item.id, item);
+  // };
 
-  onDeleteItem = () => {
-    const { onDeleteItem, idToDo } = this.props;
-    onDeleteItem(idToDo);
-  };
-
-  onClickPen = () => {
-    const { onClickPen, item } = this.props;
-    onClickPen(item);
-  };
+  onChangeCheckBox = () => {};
 
   render() {
-    const { item, idToDo, onClickCheckBox, onDeleteItem } = this.props;
+    const { item, onClickCheckBox, onDeleteItem, onClickPen } = this.props;
     let nameClass = "ItemText";
     if (item.isComplete) {
       nameClass += " Item-Complete";
@@ -34,12 +26,14 @@ class Item extends Component {
           className="CheckBox"
           type="checkbox"
           checked={item.isComplete}
-          onClick={this.onClickCheckBox}
+          onClick={() => onClickCheckBox (item.id, item)}
+          onChange={this.onChangeCheckBox}
         />
-        <p className={nameClass}>{item.title}</p>
-        <img className="Pen" src={penImg} onClick={this.onClickPen} />
-        <img className="Delete" src={deleteImg} onClick={this.onDeleteItem} />
-        <hr className="HR" />
+        <p className={nameClass}>{item.title}</p>   
+         {/* Cach truyen du lieu truc tiep:  de toi dam code*/}
+          <img className="Pen" src={penImg} onClick={() => onClickPen(item)} />
+          <img className="Delete" src={deleteImg} onClick={() => onDeleteItem(item.id) } />  
+        <hr />
       </div>
     );
   }
