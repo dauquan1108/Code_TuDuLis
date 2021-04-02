@@ -9,27 +9,29 @@
 }
 
 .Header {
-    width: 99%;
-    height: 74px;
-    padding-top: 20px;
-    margin: 5px;
+    width: 100%;
+    padding: 5px;
+    height: 68px;
+    padding-top: 15px;
+    background-color: #79666600;
 }
 
 input {
     width: 79%;
     height: 38px;
-    outline: none;
     border: none;
     background-color: #4a484800;
     padding-left: 10px;
 }
 
+input:focus {
+    outline: 0;
+}
+
 .button {
-    margin-left: 5px;
     width: 77px;
     height: 38px;
-    border: none;
-    background: #cdcccc47;
+    background: #37393600;
 }
 
 .button:hover {
@@ -41,8 +43,16 @@ input {
 .image {
     vertical-align: middle;
     border-style: none;
+    width: 35px;
+    padding: 5px;
+}
+
+.image_ {
+    vertical-align: middle;
+    border-style: none;
     width: 39px;
     padding: 6px;
+    transform: scaleY(-1);
 }
 
 .Item {

@@ -16,7 +16,7 @@ class ToDoList extends Component {
     } = this.props;
     return (
       <div>
-        {toDoListView.map((item, index) => {
+        {toDoListView.map((item) => {
           return (
             <Item
               key={item.id}

@@ -27,10 +27,8 @@ class App extends Component {
   static getDerivedStateFromProps(props, state) {
     // TODO: Tính toán lại thằng toDoListView dựa trên thằng toDoList, statusShow
     const { toDoList, statusShow } = state;
-
     let toDoListView = toDoList;
     let toDoListCompleted = toDoList.filter((num) => num.isComplete);
-
     switch (statusShow) {
       case "active": {
         toDoListView = toDoList.filter((num) => !num.isComplete);
@@ -44,7 +42,6 @@ class App extends Component {
         break;
       }
     }
-
     return {
       toDoListView,
       isCompletedAll: toDoListCompleted.length === toDoList.length,
@@ -71,8 +68,6 @@ class App extends Component {
 
   handleUpdate = (todoItem, textEdit) => {
     const { toDoListView, toDoList } = this.state;
-    //debugger;
-
     toDoListView.map((item) => {
       if (item.id === todoItem.id) {
         item.title = textEdit;
@@ -86,7 +81,6 @@ class App extends Component {
 
   // Xóa
   onDeleteItem = (id) => {
-    debugger;
     const { toDoList } = this.state;
     const copyTodoList = [...toDoList];
     // loc ra nhung phan tu khong bang id
@@ -173,7 +167,6 @@ class App extends Component {
       <>
         <div className="App">
           <HeaDer
-            //item={this.props.item}
             toDoEditing={toDoEditing}
             addToDo={this.addToDo}
             onClickCheckAllItem={this.onClickCheckAllItem}
