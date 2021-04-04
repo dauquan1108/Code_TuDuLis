@@ -5,6 +5,8 @@ import "./components/HeaDer.css";
 import HeaDer from "./components/HeaDer";
 import ToDoList from "./components/ToDoList";
 import Footer from "./components/Footer";
+import Button from "./components/Button";
+import ThemeContext from "./conText/Theme-Context";
 // import Class from "./tuan6/Class";
 // import Ref from "./tuan6/Ref";
 
@@ -160,12 +162,12 @@ class App extends Component {
 
   render() {
     const { toDoListView, toDoEditing, statusShow, toDoList } = this.state;
-
+    let { theme, toggleTheme } = this.context;
     const numberToDoActive = this.getNumberToDoActive();
-
     return (
-      <>
+      <div style={{ background: theme.background, minHeight: "100vh" }}>
         <div className="App">
+          <button onClick={toggleTheme}>Bam thay doi </button>
           <HeaDer
             toDoEditing={toDoEditing}
             addToDo={this.addToDo}
@@ -188,13 +190,10 @@ class App extends Component {
               removeAllToDoListCompleted={this.removeAllToDoListCompleted}
             />
           )}
-        </div>
-        {/* <div>
-          <Ref />
-        </div> */}
-      </>
+          </div>
+      </div>
     );
   }
 }
-
+App.contextType = ThemeContext;
 export default App;
