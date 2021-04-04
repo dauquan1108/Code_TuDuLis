@@ -173,7 +173,10 @@ class App extends Component {
         }}
       >
         <div className="ButtonChange">
-            <button  onClick={toggleTheme}> Click </button>
+          <label className="switch">
+            <input type="checkbox" onClick={toggleTheme} />
+            <span className="slider round" />
+          </label>
         </div>
         <div className="App">
           <div className="Content">
