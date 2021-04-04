@@ -1,7 +1,7 @@
 import React from "react";
 export const themes = {
   light: {
-    foreground: "#000000",
+    foreground: "rgb(1 1 1)",
     background: "#eeeeee",
     button: "blue"
   },

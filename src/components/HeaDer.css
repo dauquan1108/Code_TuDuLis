@@ -1,102 +1,129 @@
+.ButtonChange > button {
+  margin: 5%;
+  display: inline-block;
+  padding: 8px 19px;
+  font-size: 18px;
+  text-align: center;
+  text-decoration: none;
+  color: #e26e29;
+  font-weight: bold;
+  background-color: #3ee144;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 9px #c4d3b95e;
+}
+
+.ButtonChange > button:hover {
+  background-color: #4bbe4e;
+}
+
+.ButtonChange > button:active {
+  background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px);
+}
 .App {
-    text-align: center;
-    width: 40%;
-    margin: auto;
-    background-color: #4a484840;
-    border-radius: 5px;
-    box-shadow: 0 26.2px 21.2px rgba(0, 0, 0, 0.07), 0 33.4px 33.1px rgba(0, 0, 0, 0.137), 0 35.5px 40.8px rgba(0, 0, 0, 0.208), 0 35.8px 47.8px rgba(0, 0, 0, 0.29), 0 37px 57px rgba(0, 0, 0, 0.39);
+  text-align: center;
+  width: 40%;
+  margin: auto;
+  background-color: #4a484840;
+  border-radius: 5px;
+  box-shadow: 0 26.2px 21.2px rgba(0, 0, 0, 0.07),
+    0 33.4px 33.1px rgba(0, 0, 0, 0.137), 0 35.5px 40.8px rgba(0, 0, 0, 0.208),
+    0 35.8px 47.8px rgba(0, 0, 0, 0.29), 0 37px 57px rgba(0, 0, 0, 0.39);
 }
 
 .Header {
-    width: 100%;
-    padding: 5px;
-    height: 68px;
-    padding-top: 15px;
-    background-color: #79666600;
+  width: 100%;
+  padding: 5px;
+  height: 68px;
+  padding-top: 15px;
+  background-color: #79666600;
 }
 
 input {
-    width: 79%;
-    height: 38px;
-    border: none;
-    background-color: #4a484800;
-    padding-left: 10px;
+  width: 79%;
+  height: 38px;
+  border: none;
+  background-color: #4a484800;
+  padding-left: 10px;
+  color: black;
 }
 
 input:focus {
-    outline: 0;
+  outline: 0;
 }
 
 .button {
-    width: 77px;
-    height: 38px;
-    background: #37393600;
+  width: 77px;
+  height: 38px;
+  background: #37393600;
+  color: #e26e29;
+  font-weight: bolder;
 }
 
 .button:hover {
-    transition: all 2.s;
-    color: #e26e29;
-    font-weight: bolder;
+  transition: all 2s;
 }
 
 .image {
-    vertical-align: middle;
-    border-style: none;
-    width: 35px;
-    padding: 5px;
+  vertical-align: middle;
+  border-style: none;
+  width: 35px;
+  padding: 5px;
 }
 
 .image_ {
-    vertical-align: middle;
-    border-style: none;
-    width: 39px;
-    padding: 6px;
-    transform: scaleY(-1);
+  vertical-align: middle;
+  border-style: none;
+  width: 39px;
+  padding: 6px;
+  transform: scaleY(-1);
 }
 
 .Item {
-    width: 97%;
-    height: auto;
-    margin: 10px;
+  width: 97%;
+  height: auto;
+  margin: 10px;
 }
 
 .CheckBox {
-    float: left;
-    width: 22px;
-    margin-left: 20px;
-    margin-top: -7px;
+  float: left;
+  width: 22px;
+  margin-left: 20px;
+  margin-top: -7px;
 }
 
 .ItemText {
-    width: 85%;
-    float: left;
+  width: 85%;
+  float: left;
 }
 
 .Item-Complete {
-    text-decoration: line-through;
-    opacity: 0.3;
+  text-decoration: line-through;
+  opacity: 0.3;
 }
 
 .Pen {
-    width: 25px;
-    opacity: 0;
-    margin-right: 10px;
+  width: 25px;
+  opacity: 0;
+  margin-right: 10px;
 }
 
 .Item:hover .Pen {
-    opacity: 1;
+  opacity: 1;
 }
 
 .Delete {
-    width: 25px;
-    opacity: 0;
-    transition: all .2s;
+  width: 25px;
+  opacity: 0;
+  transition: all 0.2s;
 }
 
 .Item:hover .Delete {
-    opacity: .5;
+  opacity: 0.5;
 }
 
 .FooTer {
-    padding-bottom: 19px;
+  padding-bottom: 19px;
 }

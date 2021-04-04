@@ -165,32 +165,42 @@ class App extends Component {
     let { theme, toggleTheme } = this.context;
     const numberToDoActive = this.getNumberToDoActive();
     return (
-      <div style={{ background: theme.background, minHeight: "100vh" }}>
+      <div
+        style={{
+          background: theme.background,
+          minHeight: "100vh",
+          color: theme.foreground,
+        }}
+      >
+        <div className="ButtonChange">
+            <button  onClick={toggleTheme}> Click </button>
+        </div>
         <div className="App">
-          <button onClick={toggleTheme}>Bam thay doi </button>
-          <HeaDer
-            toDoEditing={toDoEditing}
-            addToDo={this.addToDo}
-            onClickCheckAllItem={this.onClickCheckAllItem}
-            handleUpdate={this.handleUpdate}
-            ref={this.myHeader}
-          />
-          <ToDoList
-            toDoListView={toDoListView}
-            onClickCheckBox={this.onClickCheckBox}
-            onClickPen={this.onClickPen}
-            onDeleteItem={this.onDeleteItem}
-          />
-          {toDoList.length > 0 && (
-            <Footer
-              toDoList={toDoList}
-              numberToDoActive={numberToDoActive}
-              updateStatusShow={this.updateStatusShow}
-              statusShow={statusShow}
-              removeAllToDoListCompleted={this.removeAllToDoListCompleted}
+          <div className="Content">
+            <HeaDer
+              toDoEditing={toDoEditing}
+              addToDo={this.addToDo}
+              onClickCheckAllItem={this.onClickCheckAllItem}
+              handleUpdate={this.handleUpdate}
+              ref={this.myHeader}
             />
-          )}
+            <ToDoList
+              toDoListView={toDoListView}
+              onClickCheckBox={this.onClickCheckBox}
+              onClickPen={this.onClickPen}
+              onDeleteItem={this.onDeleteItem}
+            />
+            {toDoList.length > 0 && (
+              <Footer
+                toDoList={toDoList}
+                numberToDoActive={numberToDoActive}
+                updateStatusShow={this.updateStatusShow}
+                statusShow={statusShow}
+                removeAllToDoListCompleted={this.removeAllToDoListCompleted}
+              />
+            )}
           </div>
+        </div>
       </div>
     );
   }
