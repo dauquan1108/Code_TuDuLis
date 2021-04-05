@@ -8,7 +8,7 @@ class HeaDer extends Component {
       value: "",
     };
   }
-  
+
   componentDidUpdate(prevProps) {
     const { toDoEditing } = this.props;
     if (toDoEditing.id !== prevProps.toDoEditing.id) {
@@ -28,7 +28,7 @@ class HeaDer extends Component {
   };
 
   handleSubmit = (event) => {
-    const { addToDo, handleUpdate, toDoEditing } = this.props;
+    const { addToDo, handleUpdate, toDoEditing, isCompletedAll } = this.props;
     const { value } = this.state;
     if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
       handleUpdate(toDoEditing, value);
@@ -46,21 +46,20 @@ class HeaDer extends Component {
   };
 
   render() {
-    let check = "image";
+    let check;
+    const  {isCompletedAll} = this.props
+    if(isCompletedAll=== false){
+      check += " image";
+    }
+    else{
+      check += " image_";
+    }
 
-    // if(isCompletedAll){
-    //   check ="image_";
-    // }
-    const {
-      toDoEditing,
-      onClickCheckAllItem,
-      handleUpdate,
-      addToDo,
-    } = this.props;
     return (
       <div className="Header">
         <form onSubmit={this.handleSubmit}>
           <img
+            alt="Img check all"
             className={check}
             src={checkAll}
             onClick={this.onClickCheckAllItem}

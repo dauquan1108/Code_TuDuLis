@@ -2,9 +2,6 @@ import React, { Component } from "react";
 import "./HeaDer.css";
 import "./index.css";
 class Footer extends Component {
-  constructor(props) {
-    super(props);
-  }
   onClickAll = () => {
     const { updateStatusShow } = this.props;
     updateStatusShow("all");
@@ -24,7 +21,7 @@ class Footer extends Component {
 
   render() {
     const haveCompleted = this.props.toDoList.filter((num) => num.isComplete);
-    const { statusShow, numberToDoActive, toDoList } = this.props;
+    const { statusShow, numberToDoActive } = this.props;
     return (
       <div className="FooTer">
         <footer className="footer">
@@ -34,6 +31,7 @@ class Footer extends Component {
           <ul className="filters">
             <li>
               <a
+                href="#all"
                 className={statusShow === "all" ? "selected" : ""}
                 onClick={this.onClickAll}
               >
@@ -42,6 +40,7 @@ class Footer extends Component {
             </li>
             <li>
               <a
+                href="#active"
                 className={statusShow === "active" ? "selected" : ""}
                 onClick={this.onClickActive}
               >
@@ -50,6 +49,7 @@ class Footer extends Component {
             </li>
             <li>
               <a
+                href="#completed"
                 className={statusShow === "completed" ? "selected" : ""}
                 onClick={this.onClickCompleted}
               >
@@ -57,8 +57,15 @@ class Footer extends Component {
               </a>
             </li>
           </ul>
-         { haveCompleted.length > 0 && (  <a className="clear-completed" onClick={this.removeAllToDoListCompleted}>Clear completed </a> )}
-         
+          {haveCompleted.length > 0 && (
+            <a
+            href="#ClearCompleted"
+              className="clear-completed"
+              onClick={this.removeAllToDoListCompleted}
+            >
+              Clear completed{" "}
+            </a>
+          )}
         </footer>
       </div>
     );

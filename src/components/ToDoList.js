@@ -3,10 +3,6 @@ import Item from "./Item";
 import "./HeaDer.css";
 
 class ToDoList extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const {
       toDoListView,

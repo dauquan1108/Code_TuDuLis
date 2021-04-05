@@ -3,15 +3,6 @@ import "./HeaDer.css";
 import deleteImg from "./images/delete.svg";
 import penImg from "./images/pen.svg";
   class Item extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  // onClickCheckBox = () => {
-  //   const { onClickCheckBox, item } = this.props;
-  //   onClickCheckBox(item.id, item);
-  // };
-
   onChangeCheckBox = () => {};
 
   render() {
@@ -31,8 +22,8 @@ import penImg from "./images/pen.svg";
         />
         <p className={nameClass}>{item.title}</p>   
          {/* Cach truyen du lieu truc tiep:  de toi dam code*/}
-          <img className="Pen" src={penImg} onClick={() => onClickPen(item)} />
-          <img className="Delete" src={deleteImg} onClick={() => onDeleteItem(item.id) } />  
+          <img alt="Img update" className="Pen" src={penImg} onClick={() => onClickPen(item)} />
+          <img  alt="Img delete"className="Delete" src={deleteImg} onClick={() => onDeleteItem(item.id) } />  
         <hr />
       </div>
     );

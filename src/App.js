@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { v4 as uuIdv4 } from "uuid";
 import "./App.css";
 import "./components/HeaDer.css";
 import HeaDer from "./components/HeaDer";
 import ToDoList from "./components/ToDoList";
 import Footer from "./components/Footer";
-import Button from "./components/Button";
+// import Button from "./components/Button";
 import ThemeContext from "./conText/Theme-Context";
 // import Class from "./tuan6/Class";
 // import Ref from "./tuan6/Ref";
@@ -24,6 +24,13 @@ class App extends Component {
       toDoEditing: {},
     };
     this.myHeader = React.createRef();
+  }
+
+  componentDidMount() {
+    let toDoList = JSON.parse(localStorage.getItem("keyToDoList"));
+    this.setState({
+      toDoList: toDoList,
+    });
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -53,12 +60,11 @@ class App extends Component {
   //thêm mới
   addToDo = (value) => {
     const { toDoList } = this.state;
+    const Test = [{ id: uuIdv4(), title: value, isComplete: false }, ...toDoList];
     this.setState({
-      toDoList: [
-        { id: uuidv4(), title: value, isComplete: false },
-        ...toDoList,
-      ],
+      toDoList:Test
     });
+    localStorage.setItem("keyToDoList", JSON.stringify(Test));
   };
 
   // click vào sửa
@@ -69,7 +75,7 @@ class App extends Component {
   };
 
   handleUpdate = (todoItem, textEdit) => {
-    const { toDoListView, toDoList } = this.state;
+    const { toDoListView } = this.state;
     toDoListView.map((item) => {
       if (item.id === todoItem.id) {
         item.title = textEdit;
@@ -79,6 +85,7 @@ class App extends Component {
       toDoList: toDoListView,
       toDoEditing: {},
     });
+    localStorage.setItem("keyToDoList", JSON.stringify(toDoListView));
   };
 
   // Xóa
@@ -87,10 +94,14 @@ class App extends Component {
     const copyTodoList = [...toDoList];
     // loc ra nhung phan tu khong bang id
     const todoListDeleted = copyTodoList.filter((todo) => todo.id !== id);
+
     this.setState({
       toDoList: todoListDeleted,
     });
+    localStorage.setItem("keyToDoList", JSON.stringify(todoListDeleted));
+
     this.myHeader.current.cleanValue();
+
   };
 
   // gạch chân item
@@ -101,7 +112,6 @@ class App extends Component {
     copyTodoList.map((todo) => {
       if (todo.id === id) {
         todo.isComplete = !todo.isComplete;
-        return;
       }
     });
     this.setState({ toDoList: copyTodoList });
@@ -109,7 +119,8 @@ class App extends Component {
 
   // check all
   onClickCheckAllItem = () => {
-    const { toDoList, isCompletedAll } = this.state;
+    const { isCompletedAll } = this.state;
+    console.log("isCompletedAll", isCompletedAll);
     if (isCompletedAll) {
       this.removeCompletedAll();
     } else {
@@ -119,7 +130,7 @@ class App extends Component {
 
   completedAll = () => {
     const { toDoList } = this.state;
-    toDoList.map((item, index) => {
+    toDoList.map((item) => {
       if (item.isComplete === false) {
         item.isComplete = true;
       }
@@ -131,7 +142,7 @@ class App extends Component {
 
   removeCompletedAll = () => {
     const { toDoList } = this.state;
-    toDoList.map((item, index) => {
+    toDoList.map((item) => {
       if (item.isComplete === true) {
         item.isComplete = false;
       }
@@ -161,7 +172,7 @@ class App extends Component {
   };
 
   render() {
-    const { toDoListView, toDoEditing, statusShow, toDoList } = this.state;
+    const { toDoListView, toDoEditing, statusShow, toDoList,isCompletedAll } = this.state;
     let { theme, toggleTheme } = this.context;
     const numberToDoActive = this.getNumberToDoActive();
     return (
@@ -181,6 +192,7 @@ class App extends Component {
         <div className="App">
           <div className="Content">
             <HeaDer
+              isCompletedAll={isCompletedAll}
               toDoEditing={toDoEditing}
               addToDo={this.addToDo}
               onClickCheckAllItem={this.onClickCheckAllItem}
