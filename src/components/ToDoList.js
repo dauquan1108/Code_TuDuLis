@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Item from "./Item";
 import "./HeaDer.css";
+import Button from "./Button";
 
 class ToDoList extends Component {
   render() {
@@ -11,7 +12,7 @@ class ToDoList extends Component {
       onClickPen,
     } = this.props;
     return (
-      <div>
+      <div className="ContentToDoList">
         {toDoListView.map((item) => {
           return (
             <Item
@@ -23,6 +24,7 @@ class ToDoList extends Component {
             />
           );
         })}
+        <Button />
       </div>
     );
   }

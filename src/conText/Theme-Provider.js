@@ -5,8 +5,12 @@ export default class extends Component {
     super(props);
     this.state = {
       theme: themes.light
-    };
+    };    
   }
+  // componentDidMount() {
+  //   localStorage.setItem("keyTheme", JSON.stringify(this.state.theme));
+  // }
+
   toggleTheme = () => {
     this.setState((state) => ({
       theme: state.theme === themes.dark ? themes.light : themes.dark

@@ -28,7 +28,7 @@ class HeaDer extends Component {
   };
 
   handleSubmit = (event) => {
-    const { addToDo, handleUpdate, toDoEditing, isCompletedAll } = this.props;
+    const { addToDo, handleUpdate, toDoEditing } = this.props;
     const { value } = this.state;
     if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
       handleUpdate(toDoEditing, value);

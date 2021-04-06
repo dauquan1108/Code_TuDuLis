@@ -5,20 +5,14 @@ import "./components/HeaDer.css";
 import HeaDer from "./components/HeaDer";
 import ToDoList from "./components/ToDoList";
 import Footer from "./components/Footer";
-// import Button from "./components/Button";
 import ThemeContext from "./conText/Theme-Context";
-// import Class from "./tuan6/Class";
-// import Ref from "./tuan6/Ref";
+
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toDoList: [
-        // { id: 1, title: "a1", isComplete: false },
-        // { id: 2, title: "a2", isComplete: true },
-        // { id: 3, title: "a3", isComplete: false },
-      ],
+      toDoList: [],
       toDoListView: [],
       statusShow: "all", // statusShow = all || active || completed
       toDoEditing: {},
@@ -59,8 +53,10 @@ class App extends Component {
 
   //thêm mới
   addToDo = (value) => {
+  
     const { toDoList } = this.state;
     const Test = [{ id: uuIdv4(), title: value, isComplete: false }, ...toDoList];
+    debugger;
     this.setState({
       toDoList:Test
     });
@@ -120,7 +116,6 @@ class App extends Component {
   // check all
   onClickCheckAllItem = () => {
     const { isCompletedAll } = this.state;
-    console.log("isCompletedAll", isCompletedAll);
     if (isCompletedAll) {
       this.removeCompletedAll();
     } else {
