@@ -7,6 +7,7 @@ class HeaDer extends Component {
     this.state = {
       value: "",
     };
+    this.input = React.createRef();
   }
 
   componentDidUpdate(prevProps) {
@@ -29,11 +30,10 @@ class HeaDer extends Component {
 
   handleSubmit = (event) => {
     const { addToDo, handleUpdate, toDoEditing } = this.props;
-    const { value } = this.state;
     if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
-      handleUpdate(toDoEditing, value);
-    } else if (value.trim()) {
-      addToDo(value);
+      handleUpdate(toDoEditing, this.input.current.value);
+    } else if (this.input.current.value.trim()) {
+      addToDo(this.input.current.value);
     }
     this.cleanValue();
     event.preventDefault();
@@ -47,11 +47,10 @@ class HeaDer extends Component {
 
   render() {
     let check;
-    const  {isCompletedAll} = this.props
-    if(isCompletedAll=== false){
+    const { isCompletedAll } = this.props;
+    if (isCompletedAll === false) {
       check += " image";
-    }
-    else{
+    } else {
       check += " image_";
     }
 
@@ -70,6 +69,7 @@ class HeaDer extends Component {
             value={this.state.value}
             onChange={this.handleInput}
             autoFocus
+            ref={this.input}
           />
           <input className="button" type="submit" value="Submit" />
           <hr />

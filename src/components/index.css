@@ -67,6 +67,7 @@ html .clear-completed:active {
     text-decoration: none;
     cursor: pointer;
     color: inherit;
+    cursor: pointer;
 }
 
 .clear-completed:hover {

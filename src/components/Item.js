@@ -2,10 +2,8 @@ import React, { Component } from "react";
 import "./HeaDer.css";
 import deleteImg from "./images/delete.svg";
 import penImg from "./images/pen.svg";
-import Button from "./Button";
-  class Item extends Component {
-  onChangeCheckBox = () => {};
 
+  class Item extends Component {
   render() {
     const { item, onClickCheckBox, onDeleteItem, onClickPen } = this.props;
     let nameClass = "ItemText";
@@ -19,7 +17,7 @@ import Button from "./Button";
           type="checkbox"
           checked={item.isComplete}
           onClick={() => onClickCheckBox (item.id, item)}
-          onChange={this.onChangeCheckBox}
+          onChange={()=>{}}
         />
         <p className={nameClass}>{item.title}</p>   
          {/* Cach truyen du lieu truc tiep:  de toi dam code*/}
