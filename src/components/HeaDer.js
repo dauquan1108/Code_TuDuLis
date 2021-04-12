@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import * as actions from "../actions/index";
+import { connect } from "react-redux";
 import "./HeaDer.css";
 import checkAll from "./images/checkAll.svg";
+
 class HeaDer extends Component {
   constructor(props) {
     super(props);
@@ -29,12 +32,14 @@ class HeaDer extends Component {
   };
 
   handleSubmit = (event) => {
-    const { addToDo, handleUpdate, toDoEditing } = this.props;
-    if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
-      handleUpdate(toDoEditing, this.input.current.value);
-    } else if (this.input.current.value.trim()) {
-      addToDo(this.input.current.value);
-    }
+    // const { addToDo, handleUpdate, toDoEditing } = this.props;
+    // if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
+    //   handleUpdate(toDoEditing, this.input.current.value);
+    // } else if (this.input.current.value.trim()) {
+    //   addToDo(this.input.current.value);
+    // }
+    this.props.onAddToDoList(this.state);
+
     this.cleanValue();
     event.preventDefault();
   };
@@ -79,4 +84,14 @@ class HeaDer extends Component {
   }
 }
 
-export default HeaDer;
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDistPatchAppTodo = (dispatch, props) => {
+  return {
+    onAddToDoList: (todo) => {
+      dispatch(actions.ADD_TODO_LIST(todo));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDistPatchAppTodo)(HeaDer);

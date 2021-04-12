@@ -16,7 +16,7 @@ class App extends Component {
       statusShow: "all", // statusShow = all || active || completed
       toDoEditing: {},
     };
-    this.myHeader = React.createRef();
+    //this.myHeader = React.createRef();
   }
 
   componentDidMount() {
@@ -50,18 +50,18 @@ class App extends Component {
     };
   }
 
-  //thêm mới
-  addToDo = (value) => {
-    const { toDoList } = this.state;
-    const Test = [
-      { id: uuIdv4(), title: value, isComplete: false },
-      ...toDoList,
-    ];
-    this.setState({
-      toDoList: Test,
-    });
-    localStorage.setItem("keyToDoList", JSON.stringify(Test));
-  };
+  // //thêm mới
+  // addToDo = (value) => {
+  //   const { toDoList } = this.state;
+  //   const Test = [
+  //     { id: uuIdv4(), title: value, isComplete: false },
+  //     ...toDoList,
+  //   ];
+  //   this.setState({
+  //     toDoList: Test,
+  //   });
+  //   localStorage.setItem("keyToDoList", JSON.stringify(Test));
+  // };
 
   // click vào sửa
   onClickPen = (toDoEditing) => {
@@ -90,7 +90,6 @@ class App extends Component {
     const copyTodoList = [...toDoList];
     // loc ra nhung phan tu khong bang id
     const todoListDeleted = copyTodoList.filter((todo) => todo.id !== id);
-
     this.setState({
       toDoList: todoListDeleted,
     });
@@ -194,16 +193,16 @@ class App extends Component {
             <HeaDer
               isCompletedAll={isCompletedAll}
               toDoEditing={toDoEditing}
-              addToDo={this.addToDo}
+              //addToDo={this.addToDo}
               onClickCheckAllItem={this.onClickCheckAllItem}
               handleUpdate={this.handleUpdate}
               ref={this.myHeader}
             />
             <ToDoList
-              toDoListView={toDoListView}
-              onClickCheckBox={this.onClickCheckBox}
+              // toDoListView={toDoListView}
+              // onClickCheckBox={this.onClickCheckBox}
               onClickPen={this.onClickPen}
-              onDeleteItem={this.onDeleteItem}
+              // onDeleteItem={this.onDeleteItem}
             />
             {toDoList.length > 0 && (
               <Footer

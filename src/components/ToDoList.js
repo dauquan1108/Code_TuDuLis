@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import Item from "./Item";
 import "./HeaDer.css";
 import Button from "./Button";
@@ -30,4 +31,9 @@ class ToDoList extends Component {
   }
 }
 
-export default ToDoList;
+const mapStateToProps = (state) => {
+  return {
+    toDoListView: state.todo,
+  };
+};
+export default connect(mapStateToProps, null)(ToDoList);
