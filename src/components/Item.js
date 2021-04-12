@@ -17,7 +17,7 @@ class Item extends Component {
     this.props.onDeleteItem(item.id);
   };
   render() {
-    const { item, onDeleteItem, onClickPen } = this.props;
+    const { item, onClickPen } = this.props;
     let nameClass = "ItemText";
     if (item.isComplete) {
       nameClass += " Item-Complete";

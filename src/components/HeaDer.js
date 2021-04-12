@@ -27,18 +27,20 @@ class HeaDer extends Component {
   };
 
   onClickCheckAllItem = () => {
-    const { onClickCheckAllItem } = this.props;
-    onClickCheckAllItem();
+    const { onCheckAll } = this.props;
+    onCheckAll();
   };
 
   handleSubmit = (event) => {
-    // const { addToDo, handleUpdate, toDoEditing } = this.props;
+     const {onAddToDoList} = this.props;
     // if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
     //   handleUpdate(toDoEditing, this.input.current.value);
     // } else if (this.input.current.value.trim()) {
     //   addToDo(this.input.current.value);
     // }
-    this.props.onAddToDoList(this.state);
+
+
+    onAddToDoList(this.state);
 
     this.cleanValue();
     event.preventDefault();
@@ -92,6 +94,9 @@ const mapDistPatchAppTodo = (dispatch, props) => {
     onAddToDoList: (todo) => {
       dispatch(actions.ADD_TODO_LIST(todo));
     },
+    onCheckAll: ()=>{
+      dispatch(actions.CHECK_ALL_ITEM());
+    }
   };
 };
 export default connect(mapStateToProps, mapDistPatchAppTodo)(HeaDer);

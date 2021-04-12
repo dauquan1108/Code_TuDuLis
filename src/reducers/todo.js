@@ -14,6 +14,8 @@ let idIndex = (tasks, id) => {
 };
 
 let initialToDoList = data ? data : [];
+//let  statusShow = "all"; // statusShow = all || active || completed
+
 
 let myReducers = (state = initialToDoList, action) => {
   switch (action.type) {
@@ -26,33 +28,29 @@ let myReducers = (state = initialToDoList, action) => {
         title: action.todo.value,
         isComplete: false,
       };
-      state.push(ToDoNew);
+      state.push();
       localStorage.setItem("keyToDoList", JSON.stringify(state));
       return [...state];
 
     case type.DELETE_ITEM:
-      console.log(action);
-      // const todoListCopy = [...initialToDoList];
-      // let ID = action.id;
-      // console.log("xoa id", ID);
-      // debugger;
-      // todoListCopy.splice(ID, 1);
+      let ID = action.id;
+      let index = idIndex(state, ID);
+      state.splice(index, 1);
 
-      // // const todoListDeleted = initialToDoList.filter((todo) => todo.id !== ID);
-      // localStorage.setItem("keyToDoList", JSON.stringify(initialToDoList));
+      localStorage.setItem("keyToDoList", JSON.stringify(state));
+      return [...state];
 
+    case type.CHECK_ALL:
+      console.log("---action---", action);
       return [...state];
 
     case type.UP_DATA_IS_COMPLETE:
-      console.log(action);
-      // let id = action.id;
-      // initialToDoList.map((todo) => {
-      //   if (todo.id === id) {
-      //     todo.isComplete = !todo.isComplete;
-      //   }
-      // });
-      // localStorage.setItem("keyToDoList", JSON.stringify(initialToDoList));
-
+      let id = action.id;
+      let indexID = idIndex(state, id);
+      let isCompleteCheck = { ...state[indexID] };
+      isCompleteCheck.isComplete = !isCompleteCheck.isComplete;
+      state[indexID] = isCompleteCheck;
+      localStorage.setItem("keyToDoList", JSON.stringify(state));
       return [...state];
 
     default:

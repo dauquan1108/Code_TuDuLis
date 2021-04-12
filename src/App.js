@@ -84,32 +84,32 @@ class App extends Component {
     localStorage.setItem("keyToDoList", JSON.stringify(toDoListView));
   };
 
-  // Xóa
-  onDeleteItem = (id) => {
-    const { toDoList } = this.state;
-    const copyTodoList = [...toDoList];
-    // loc ra nhung phan tu khong bang id
-    const todoListDeleted = copyTodoList.filter((todo) => todo.id !== id);
-    this.setState({
-      toDoList: todoListDeleted,
-    });
-    localStorage.setItem("keyToDoList", JSON.stringify(todoListDeleted));
+  // // Xóa
+  // onDeleteItem = (id) => {
+  //   const { toDoList } = this.state;
+  //   const copyTodoList = [...toDoList];
+  //   // loc ra nhung phan tu khong bang id
+  //   const todoListDeleted = copyTodoList.filter((todo) => todo.id !== id);
+  //   this.setState({
+  //     toDoList: todoListDeleted,
+  //   });
+  //   localStorage.setItem("keyToDoList", JSON.stringify(todoListDeleted));
 
-    this.myHeader.current.cleanValue();
-  };
+  //   this.myHeader.current.cleanValue();
+  // };
 
   // gạch chân item
-  onClickCheckBox = (id) => {
-    const { toDoList } = this.state;
-    let copyTodoList = [...toDoList];
-    // so sanh id ban dau voi id duoc truyen tu thang con gui toi neu 2 id bang nhau thi moi thuc hien khoi lenhj
-    copyTodoList.map((todo) => {
-      if (todo.id === id) {
-        todo.isComplete = !todo.isComplete;
-      }
-    });
-    this.setState({ toDoList: copyTodoList });
-  };
+  // onClickCheckBox = (id) => {
+  //   const { toDoList } = this.state;
+  //   let copyTodoList = [...toDoList];
+  //   // so sanh id ban dau voi id duoc truyen tu thang con gui toi neu 2 id bang nhau thi moi thuc hien khoi lenhj
+  //   copyTodoList.map((todo) => {
+  //     if (todo.id === id) {
+  //       todo.isComplete = !todo.isComplete;
+  //     }
+  //   });
+  //   this.setState({ toDoList: copyTodoList });
+  // };
 
   // check all
   onClickCheckAllItem = () => {

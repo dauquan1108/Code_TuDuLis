@@ -20,9 +20,16 @@ export const DELETE_ITEM_TODO = (id) => {
   };
 };
 
+export const CHECK_ALL_ITEM = () =>{
+  return {
+    type: types.CHECK_ALL,
+  }
+}
+
 export const UP_DATA_IS_COMPLETE_ITEM = (id) => {
   return {
     type: types.UP_DATA_IS_COMPLETE,
     id: id,
   };
 };
+
