@@ -59,11 +59,11 @@ class Footer extends Component {
           </ul>
           {haveCompleted.length > 0 && (
             <a
-              href="#ClearCompleted"
+            href="#ClearCompleted"
               className="clear-completed"
               onClick={this.removeAllToDoListCompleted}
             >
-              Clear completed
+              Clear completed{" "}
             </a>
           )}
         </footer>

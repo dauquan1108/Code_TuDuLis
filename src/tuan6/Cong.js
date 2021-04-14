@@ -1,18 +1,31 @@
 import React, { Component } from "react";
-import ThemeContext from "../conText/Theme-Context";
 
 class Cong extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      number: 0,
+    };
+  }
+  clickCong = () => {
+    //debugger;
+    this.setState({
+      number: this.state.number + 1,
+    });
+  };
+  clickTru = () => {
+    //debugger;
+    this.setState({
+      number: this.state.number - 1,
+    });
+  };
   render() {
     return (
-      <ThemeContext.Consumer>
-        {({ number, clickCong, clickTru, theme }) => (
-          <div>
-            <button onClick={clickCong} style={{backgroundColor:theme.button}}> + </button>
-            <strong>{number}</strong>
-            <button onClick={clickTru} style={{backgroundColor: theme.button}}> - </button>
-          </div>
-        )}
-      </ThemeContext.Consumer>
+      <div>
+        <button onClick={() => this.clickCong()}>+</button>
+        <strong>{this.state.number}</strong>
+        <button onClick={() => this.clickTru()}>-</button>
+      </div>
     );
   }
 }

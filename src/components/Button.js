@@ -3,13 +3,10 @@ import ThemeContext from "../conText/Theme-Context";
 function ThemeTogglerButton() {
   return (
     <ThemeContext.Consumer>
-      {({ toggleTheme }) => (
-        <div className="ButtonChange">
-          <label className="switch">
-            <input type="checkbox" onClick={toggleTheme} />
-            <span className="slider round" />
-          </label>
-        </div>
+      {({ theme, toggleTheme }) => (
+        <button onClick={toggleTheme} style={{ backgroundColor: theme.button }}>
+         Click
+        </button>
       )}
     </ThemeContext.Consumer>
   );

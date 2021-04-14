@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import { v4 as uuIdv4 } from "uuid";
+import "./App.css";
 import "./components/HeaDer.css";
 import HeaDer from "./components/HeaDer";
 import ToDoList from "./components/ToDoList";
 import Footer from "./components/Footer";
 import ThemeContext from "./conText/Theme-Context";
-import Cong from "./tuan6/Cong";
 
 class App extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    let toDoList = JSON.parse(localStorage.getItem("keyToDoList")) || [];
+    let toDoList = JSON.parse(localStorage.getItem("keyToDoList"));
     this.setState({
       toDoList: toDoList,
     });
@@ -50,18 +50,19 @@ class App extends Component {
     };
   }
 
-  // //thêm mới
-  // addToDo = (value) => {
-  //   const { toDoList } = this.state;
-  //   const Test = [
-  //     { id: uuIdv4(), title: value, isComplete: false },
-  //     ...toDoList,
-  //   ];
-  //   this.setState({
-  //     toDoList: Test,
-  //   });
-  //   localStorage.setItem("keyToDoList", JSON.stringify(Test));
-  // };
+  //thêm mới
+  addToDo = (value) => {
+    const { toDoList } = this.state;
+    const Test = [
+      { id: uuIdv4(), title: value, isComplete: false },
+      ...toDoList,
+    ];
+    debugger;
+    this.setState({
+      toDoList: Test,
+    });
+    localStorage.setItem("keyToDoList", JSON.stringify(Test));
+  };
 
   // click vào sửa
   onClickPen = (toDoEditing) => {
@@ -95,7 +96,13 @@ class App extends Component {
   //   });
   //   localStorage.setItem("keyToDoList", JSON.stringify(todoListDeleted));
 
+  //   this.setState({
+  //     toDoList: todoListDeleted,
+  //   });
+  //   localStorage.setItem("keyToDoList", JSON.stringify(todoListDeleted));
+
   //   this.myHeader.current.cleanValue();
+
   // };
 
   // gạch chân item
@@ -214,9 +221,6 @@ class App extends Component {
               />
             )}
           </div>
-        </div>
-        <div>
-          <Cong />
         </div>
       </div>
     );

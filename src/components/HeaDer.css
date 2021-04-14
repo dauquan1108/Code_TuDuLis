@@ -75,12 +75,11 @@ input:checked+.slider:before {
     background-color: #79666600;
 }
 
-
-/* .ContentToDoList {
+.ContentToDoList {
     height: 300px;
     overflow: hidden;
     overflow-y: scroll;
-} */
+}
 
 input {
     width: 79%;
@@ -112,7 +111,6 @@ input:focus {
     border-style: none;
     width: 35px;
     padding: 5px;
-    cursor: pointer;
 }
 
 .image_ {
@@ -121,7 +119,6 @@ input:focus {
     width: 39px;
     padding: 6px;
     transform: scaleY(-1);
-    cursor: pointer;
 }
 
 .Item {
@@ -151,7 +148,6 @@ input:focus {
     width: 25px;
     opacity: 0;
     margin-right: 10px;
-    cursor: pointer;
 }
 
 .Item:hover .Pen {
@@ -162,7 +158,6 @@ input:focus {
     width: 25px;
     opacity: 0;
     transition: all 0.2s;
-    cursor: pointer;
 }
 
 .Item:hover .Delete {

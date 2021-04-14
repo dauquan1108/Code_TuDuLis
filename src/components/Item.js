@@ -2,20 +2,10 @@ import React, { Component } from "react";
 import "./HeaDer.css";
 import deleteImg from "./images/delete.svg";
 import penImg from "./images/pen.svg";
-// -------
-import { connect } from "react-redux";
-import * as actions from "../actions/index";
-
+import Button from "./Button";
 class Item extends Component {
-  onClickCheckBox = () => {
-    const { item } = this.props;
-    this.props.onUpDataIsComplete(item.id, item);
-  };
+  onChangeCheckBox = () => {};
 
-  deleteItem = () => {
-    const { item } = this.props;
-    this.props.onDeleteItem(item.id);
-  };
   render() {
     const { item, onClickPen } = this.props;
     let nameClass = "ItemText";
@@ -28,22 +18,8 @@ class Item extends Component {
           className="CheckBox"
           type="checkbox"
           checked={item.isComplete}
-          onClick={this.onClickCheckBox}
-          onChange={() => {}}
-        />
-        <p className={nameClass}>{item.title}</p>
-        {/* Cach truyen du lieu truc tiep:  de toi dam code*/}
-        <img
-          alt="Img update"
-          className="Pen"
-          src={penImg}
-          onClick={() => onClickPen(item)}
-        />
-        <img
-          alt="Img delete"
-          className="Delete"
-          src={deleteImg}
-          onClick={this.deleteItem}
+          onClick={() => onClickCheckBox(item.id, item)}
+          onChange={this.onChangeCheckBox}
         />
         <hr />
       </div>

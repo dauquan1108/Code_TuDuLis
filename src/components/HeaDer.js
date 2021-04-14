@@ -10,7 +10,6 @@ class HeaDer extends Component {
     this.state = {
       value: "",
     };
-    this.input = React.createRef();
   }
 
   componentDidUpdate(prevProps) {
@@ -32,16 +31,13 @@ class HeaDer extends Component {
   };
 
   handleSubmit = (event) => {
-     const {onAddToDoList} = this.props;
-    // if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
-    //   handleUpdate(toDoEditing, this.input.current.value);
-    // } else if (this.input.current.value.trim()) {
-    //   addToDo(this.input.current.value);
-    // }
-
-
-    onAddToDoList(this.state);
-
+    const { addToDo, handleUpdate, toDoEditing } = this.props;
+    const { value } = this.state;
+    if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
+      handleUpdate(toDoEditing, value);
+    } else if (value.trim()) {
+      addToDo(value);
+    }
     this.cleanValue();
     event.preventDefault();
   };
@@ -76,7 +72,6 @@ class HeaDer extends Component {
             value={this.state.value}
             onChange={this.handleInput}
             autoFocus
-            ref={this.input}
           />
           <input className="button" type="submit" value="Submit" />
           <hr />
@@ -94,9 +89,9 @@ const mapDistPatchAppTodo = (dispatch, props) => {
     onAddToDoList: (todo) => {
       dispatch(actions.ADD_TODO_LIST(todo));
     },
-    onCheckAll: ()=>{
+    onCheckAll: () => {
       dispatch(actions.CHECK_ALL_ITEM());
-    }
+    },
   };
 };
 export default connect(mapStateToProps, mapDistPatchAppTodo)(HeaDer);
